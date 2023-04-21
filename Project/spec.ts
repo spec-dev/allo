@@ -1,12 +1,11 @@
-import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, BlockNumber, BigInt, Timestamp, ChainId, saveAll } from '@spec.dev/core'
-import ProjectOwner from '../ProjectOwner/spec.ts'
-import Account from '../Account/spec.ts'
+import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, BigInt } from '@spec.dev/core'
 
 /**
  * A Project that can apply for a Round on the Allo protocol.
  */
 @Spec({ uniqueBy: ['projectId', 'chainId'] })
 class Project extends LiveObject {
+
     // The project id.
     @Property()
     projectId: BigInt
@@ -19,52 +18,15 @@ class Project extends LiveObject {
     @Property()
     metaPointer: string
 
-    // The block number in which the Project was last updated.
-    @Property()
-    blockNumber: BlockNumber
-
-    // The block timestamp in which the Project was last updated.
-    @Property({ primaryTimestamp: true })
-    blockTimestamp: Timestamp
-
-    // The blockchain id.
-    @Property()
-    chainId: ChainId
-
-    //-----------------------------------------------------
-    //  EVENT HANDLERS
-    //-----------------------------------------------------
+    // ==== Event Handlers ===================
 
     @OnAllEvents()
     setCommonProperties(event: Event) {
         this.projectId = BigInt.from(event.data.projectID)
-        this.blockNumber = event.origin.blockNumber
-        this.blockTimestamp = event.origin.blockTimestamp
-        this.chainId = event.origin.chainId
     }
 
     @OnEvent('allo.ProjectRegistry.ProjectCreated')
-    async createProject(event: Event) {
-        // Upsert the owner's account.
-        const account = this.new(Account, {
-            address: event.data.owner,
-            blockNumber: this.blockNumber,
-            blockTimestamp: this.blockTimestamp,
-            chainId: this.chainId,
-        })
-
-        // Add the owner to the project.
-        const projectOwner = this.new(ProjectOwner, {
-            projectId: this.projectId,
-            accountAddress: account.address,
-            blockNumber: this.blockNumber,
-            blockTimestamp: this.blockTimestamp,
-            chainId: this.chainId,
-        })
-
-        // Save all in a single tx.
-        await saveAll(this, account, projectOwner)
-    }
+    createProject() {}
 
     @OnEvent('allo.ProjectRegistry.MetadataUpdated')
     updateMetadata(event: Event) {

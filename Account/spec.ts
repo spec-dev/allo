@@ -1,25 +1,21 @@
-import { LiveObject, Spec, Property, Address, BlockNumber, Timestamp, ChainId } from '@spec.dev/core'
+import { LiveObject, Spec, Property, Address, OnEvent, Event } from '@spec.dev/core'
 
 /**
  * An account on the Allo protocol.
  */
 @Spec({ uniqueBy: ['address', 'chainId'] })
 class Account extends LiveObject {
+    
     // The address of the Account.
     @Property()
     address: Address
 
-    // The block number in which the Account was last updated.
-    @Property()
-    blockNumber: BlockNumber
+    // ==== Event Handlers ===================
 
-    // The block timestamp in which the Account was last updated.
-    @Property({ primaryTimestamp: true })
-    blockTimestamp: Timestamp
-
-    // The blockchain id.
-    @Property()
-    chainId: ChainId
+    @OnEvent('allo.ProjectRegistry.ProjectCreated')
+    registerAccount(event: Event) {
+        this.address = event.data.owner
+    }
 }
 
 export default Account

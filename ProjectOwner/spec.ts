@@ -1,4 +1,4 @@
-import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, Address, BigInt, BlockNumber, Timestamp, ChainId } from '@spec.dev/core'
+import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, Address, BigInt } from '@spec.dev/core'
 
 /**
  * One of the owners of an Allo Project.
@@ -13,35 +13,19 @@ class ProjectOwner extends LiveObject {
     @Property()
     accountAddress: Address
 
-    // Whether they are still an active owner (or were removed).
+    // Whether they are still an active owner.
     @Property()
     isActive: boolean
 
-    // The block number in which the ProjectOwner was added or removed.
-    @Property()
-    blockNumber: BlockNumber
-
-    // The block timestamp in which the ProjectOwner was added or removed.
-    @Property({ primaryTimestamp: true })
-    blockTimestamp: Timestamp
-
-    // The blockchain id.
-    @Property()
-    chainId: ChainId
-
-    //-----------------------------------------------------
-    //  EVENT HANDLERS
-    //-----------------------------------------------------
+    // ==== Event Handlers ===================
 
     @OnAllEvents()
     setCommonProperties(event: Event) {
         this.projectId = BigInt.from(event.data.projectID)
         this.accountAddress = event.data.owner
-        this.blockNumber = event.origin.blockNumber
-        this.blockTimestamp = event.origin.blockTimestamp
-        this.chainId = event.origin.chainId
     }
 
+    @OnEvent('allo.ProjectRegistry.ProjectCreated')
     @OnEvent('allo.ProjectRegistry.OwnerAdded')
     addOwner() {
         this.isActive = true
