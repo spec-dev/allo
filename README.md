@@ -1,5 +1,6 @@
 # Live Objects for the Allo Protocol
 
+
 ### Account
 
 An account on the Allo protocol. [[spec](Account/spec.ts)]
@@ -14,7 +15,7 @@ interface Account {
 }
 ```
 
-* Project
+### Project
 
 A Project that can apply for a Round on the Allo protocol. [[spec](Project/spec.ts)]
 
@@ -30,7 +31,7 @@ interface Project {
 }
 ```
 
-* ProjectOwner
+### ProjectOwner
 
 One of the owners of an Allo Project. [[spec](ProjectOwner/spec.ts)]
 
