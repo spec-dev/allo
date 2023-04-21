@@ -3,7 +3,9 @@ import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, Address, BigIn
 /**
  * One of the owners of an Allo Project.
  */
-@Spec({ uniqueBy: ['projectId', 'accountAddress', 'chainId'] })
+@Spec({ 
+    uniqueBy: ['projectId', 'accountAddress', 'chainId'] 
+})
 class ProjectOwner extends LiveObject {
     // The project id.
     @Property()

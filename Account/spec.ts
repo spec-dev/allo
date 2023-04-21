@@ -3,9 +3,10 @@ import { LiveObject, Spec, Property, Address, OnEvent, Event } from '@spec.dev/c
 /**
  * An account on the Allo protocol.
  */
-@Spec({ uniqueBy: ['address', 'chainId'] })
-class Account extends LiveObject {
-    
+@Spec({ 
+    uniqueBy: ['address', 'chainId'] 
+})
+class Account extends LiveObject { 
     // The address of the Account.
     @Property()
     address: Address

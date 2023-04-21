@@ -3,9 +3,10 @@ import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, BigInt } from 
 /**
  * A Project that can apply for a Round on the Allo protocol.
  */
-@Spec({ uniqueBy: ['projectId', 'chainId'] })
+@Spec({ 
+    uniqueBy: ['projectId', 'chainId']
+})
 class Project extends LiveObject {
-
     // The project id.
     @Property()
     projectId: BigInt
