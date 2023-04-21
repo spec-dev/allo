@@ -37,7 +37,7 @@ class Project extends LiveObject {
 
     @OnAllEvents()
     setCommonProperties(event: Event) {
-        this.projectId = BigInt.from(event.data.projectId)
+        this.projectId = BigInt.from(event.data.projectID)
         this.blockNumber = event.origin.blockNumber
         this.blockTimestamp = event.origin.blockTimestamp
         this.chainId = event.origin.chainId
