@@ -3,6 +3,6 @@
     "name": "Project",
     "version": "0.0.1",
     "displayName": "Allo Projects",
-    "description": "A Project that can apply for a Round on Allo",
+    "description": "A Project that can apply for a Round on the Allo protocol",
     "chains": [1, 5]
 }

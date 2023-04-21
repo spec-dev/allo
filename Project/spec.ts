@@ -3,7 +3,7 @@ import ProjectOwner from '../ProjectOwner/spec.ts'
 import Account from '../Account/spec.ts'
 
 /**
- * A Project that can apply for a Round on Allo.
+ * A Project that can apply for a Round on the Allo protocol.
  */
 @Spec({ uniqueBy: ['projectId', 'chainId'] })
 class Project extends LiveObject {

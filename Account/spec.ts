@@ -1,7 +1,7 @@
 import { LiveObject, Spec, Property, Address, BlockNumber, Timestamp, ChainId } from '@spec.dev/core'
 
 /**
- * An account on Allo.
+ * An account on the Allo protocol.
  */
 @Spec({ uniqueBy: ['address', 'chainId'] })
 class Account extends LiveObject {
