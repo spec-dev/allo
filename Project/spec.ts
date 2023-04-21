@@ -45,7 +45,7 @@ class Project extends LiveObject {
 
     @OnEvent('allo.ProjectRegistry.ProjectCreated')
     async createProject(event: Event) {
-        // Register account address.
+        // Upsert the owner's account.
         const account = this.new(Account, {
             address: event.data.owner,
             blockNumber: this.blockNumber,
@@ -53,7 +53,7 @@ class Project extends LiveObject {
             chainId: this.chainId,
         })
 
-        // Add owner to project.
+        // Add the owner to the project.
         const projectOwner = this.new(ProjectOwner, {
             projectId: this.projectId,
             accountAddress: account.address,
