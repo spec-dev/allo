@@ -1,6 +1,6 @@
 # Allo Live Objects
 
-Live Objects on Spec for the [Allo Protocol](https://docs.allo.gitcoin.c)
+Live Objects on Spec for the [Allo Protocol](https://docs.allo.gitcoin.co).
 
 
 ### Account
