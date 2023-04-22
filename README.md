@@ -1,4 +1,6 @@
-# Live Objects for the Allo Protocol
+# Allo Live Objects
+
+Live Objects on Spec for the [Allo Protocol](https://docs.allo.gitcoin.c)
 
 
 ### Account
@@ -33,7 +35,7 @@ interface Project {
 
 ### ProjectOwner
 
-One of the owners of an Allo Project. [[spec](ProjectOwner/spec.ts)]
+An owner of an Allo Project. [[spec](ProjectOwner/spec.ts)]
 
 ```typescript
 interface ProjectOwner {
