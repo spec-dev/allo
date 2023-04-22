@@ -27,7 +27,7 @@ class Project extends LiveObject {
     }
 
     @OnEvent('allo.ProjectRegistry.ProjectCreated')
-    createProject() { /* All done :) */ }
+    createProject() { /* Will auto-save so we're all done :) */ }
 
     @OnEvent('allo.ProjectRegistry.MetadataUpdated')
     updateMetadata(event: Event) {
