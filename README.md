@@ -93,7 +93,7 @@ $ spec use project <org>/<name>
 
 4) Make sure your local postgres instance is running on localhost:5432
 
-### Testing
+### Testing Live Objects
 
 Testing all live objects in this folder should be as easy as running:
 
