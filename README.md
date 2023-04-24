@@ -15,8 +15,9 @@ interface Account {
     chainId: ChainId
 }
 ```
+* **Unique By**: `(address, chainId)`
 * **Chains**: 1,5
-* Affected by events:
+* **Affected By**:
     * `allo.ProjectRegistry.ProjectCreated`
 
 ### Project
@@ -34,8 +35,9 @@ interface Project {
     chainId: ChainId
 }
 ```
+* **Unique By**: `(projectId, chainId)`
 * **Chains**: 1,5
-* Affected by events:
+* **Affected By**:
     * `allo.ProjectRegistry.ProjectCreated`
     * `allo.ProjectRegistry.MetadataUpdated`
     
@@ -54,8 +56,9 @@ interface ProjectOwner {
     chainId: ChainId
 }
 ```
+* **Unique By**: `(projectId, accountAddress, chainId)`
 * **Chains**: 1,5
-* Affected by events:
+* **Affected By**:
     * `allo.ProjectRegistry.ProjectCreated`
     * `allo.ProjectRegistry.OwnerAdded`
     * `allo.ProjectRegistry.OwnerRemoved`
