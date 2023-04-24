@@ -15,6 +15,9 @@ interface Account {
     chainId: ChainId
 }
 ```
+* **Chains**: 1,5
+* Affected by events:
+    * `allo.ProjectRegistry.ProjectCreated`
 
 ### Project
 
@@ -31,7 +34,11 @@ interface Project {
     chainId: ChainId
 }
 ```
-
+* **Chains**: 1,5
+* Affected by events:
+    * `allo.ProjectRegistry.ProjectCreated`
+    * `allo.ProjectRegistry.MetadataUpdated`
+    
 ### ProjectOwner
 
 An owner of an Allo Project. [[spec](ProjectOwner/spec.ts)]
@@ -47,6 +54,11 @@ interface ProjectOwner {
     chainId: ChainId
 }
 ```
+* **Chains**: 1,5
+* Affected by events:
+    * `allo.ProjectRegistry.ProjectCreated`
+    * `allo.ProjectRegistry.OwnerAdded`
+    * `allo.ProjectRegistry.OwnerRemoved`
 
 # Developing & Testing Locally
 
