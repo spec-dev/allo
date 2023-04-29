@@ -129,6 +129,8 @@ $ spec use project <org>/<name>
 
 ### Testing Live Objects
 
+It's easy to test your Live Objects locally using live data from Spec's event network.
+
 To test a single Live Object:
 
 ```bash
