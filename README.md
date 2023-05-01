@@ -151,13 +151,12 @@ $ spec test objects .
 
 The Live Object testing process will:<br>
 1) Create a Postgres table for each Live Object in your local database.
-2) Subscribe to all input events & contract calls that your Live Object depends on.
-3) Route new input events & contract calls into the respective handlers of your Live Objects when these occur.
-4) When a handler completes, the Live Object will automatically be upserted as a record in its associated table.
+2) Subscribe to all inputs (events & contract calls) that your Live Objects depend on.
+3) Route new inputs (events & contract calls) into their respective Live Object handler functions.
 
 ### Testing On Historical Input Data
 
-Being able to test your Live Objects on a range of historical input data (event & contract calls) is great if the inputs you depend on don't occur too often. 
+Being able to test Live Objects on a range of historical input data is great, especially if those events or contract calls don't occur on-chain very often.
 
 Test all Live Objects on the previous 30 days of input events/calls:
 
@@ -169,4 +168,10 @@ Test all Live Objects from a specific day forward:
 
 ```bash
 $ spec test objects . --from 2.1.2023
+```
+
+Test all Live Objects on all their entire history of input data.
+
+```bash
+$ spec test objects . --all-time
 ```
