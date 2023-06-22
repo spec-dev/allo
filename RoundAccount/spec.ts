@@ -13,10 +13,10 @@ class RoundAccount extends LiveObject {
 
     // ==== Event Handlers ===================
 
-    @OnEvent('namespace.ContractName.EventName')
-    onSomeEvent(event: Event) {
-        this.someProperty = event.data.someProperty
-    }
+    // @OnEvent('namespace.ContractName.EventName')
+    // onSomeEvent(event: Event) {
+    //     this.someProperty = event.data.someProperty
+    // }
 }
 
 export default RoundAccount

@@ -65,58 +65,10 @@ class Round extends LiveObject {
 
     @OnEvent('allo.RoundFactory.RoundCreated')
     onRoundCreated(event: Event) {
-        console.log(event)
+        // TODO
         // this.someProperty = event.data.someProperty
         // this.addContractToGroup(event.data.round, 'allo.Round')
     }
-
-    // @Property()
-    // payoutStrategy: PayoutStrategy!
-
-    // @Property()
-    // applicationsStartTime: string!
-
-    // @Property()
-    // applicationsEndTime: string!
-
-    // @Property()
-    // roundStartTime: string!
-
-    // @Property()
-    // roundEndTime: string!
-
-    // @Property()
-    // token: string!
-
-    // @Property()
-    // matchAmount: BigInt!
-
-    // @Property()
-    // roundFeePercentage: BigInt!
-
-    // @Property()
-    // roundFeeAddress: string!
-
-    // @Property()
-    // roundMetaPtr: MetaPtr! # id = "roundMetaPtr-{roundAddress.toHex()}"
-
-    // @Property()
-    // applicationMetaPtr: MetaPtr! # id = "applicationMetaPtr-{roundAddress.toHex()}"
-
-    // @Property()
-    // projectsMetaPtr: MetaPtr # id = "projectsMetaPtr-{roundAddress.toHex()}"
-
-    // @Property()
-    // createdAt: BigInt!
-
-    // @Property()
-    // updatedAt: BigInt!
-
-    // @Property()
-    // version: string!
-
-
-
 }
 
 export default Round
