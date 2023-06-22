@@ -1,0 +1,11 @@
+{
+    "namespace": "allo",
+    "name": "Program",
+    "version": "0.0.1",
+    "displayName": "Program",
+    "description": "",
+    "chains": [
+        1,
+        5
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "namespace": "allo",
+    "name": "RoundAccount",
+    "version": "0.0.1",
+    "displayName": "RoundAccount",
+    "description": "",
+    "chains": [
+        1,
+        5
+    ]
+}
