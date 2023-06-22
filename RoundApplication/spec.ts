@@ -54,12 +54,18 @@ class RoundApplication extends LiveObject {
 
         this.metaProtocol = Number(protocol)
         this.metaPointer = pointer
+        this.status = 0
 
         this.project = event.data.project
-        this.createdAt = event.data.blockTimestamp
-        this.updatedAt = event.data.blockTimestamp
+        this.createdAt = event.origin.blockTimestamp
+        this.updatedAt = event.origin.blockTimestamp
 
         this.addContractToGroup(this.address, 'allo.RoundApplication')
+    }
+
+    @OnEvent('allo.Round.ApplicationStatusesUpdated')
+    onApplicationStatusesUpdated(event: Event) {
+        this.status = event.data.status
     }
 }
 

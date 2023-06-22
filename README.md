@@ -63,6 +63,26 @@ interface ProjectOwner {
     * `allo.ProjectRegistry.OwnerAdded`
     * `allo.ProjectRegistry.OwnerRemoved`
 
+```typescript
+interface RoundApplication {
+    round: Address
+    applicationIndex: number
+    address: Address
+    project: string
+    status: number
+    metaProtocol: number
+    metaPointer: string
+    sender: Address
+    createdAt: Timestamp
+    updatedAt: Timestamp
+}
+```
+* **Unique By**: `(round, applicationIndex, chainId)`
+* **Chains**: 1,5
+* **Affected By**:
+    * `allo.Round.NewProjectApplication`
+
+
 # Allo Contracts
 
 The following Allo contracts have been registered on Spec:
