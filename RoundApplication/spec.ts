@@ -29,9 +29,6 @@ class RoundApplication extends LiveObject {
     metaPointer: string
 
     @Property()
-    payoutAddress: Address
-
-    @Property()
     sender: Address
 
     @Property()
@@ -43,7 +40,7 @@ class RoundApplication extends LiveObject {
     // ==== Event Handlers ===================
 
     @OnEvent('allo.Round.NewProjectApplication')
-    onNewProjectApplication(event: Event) {
+    async onNewProjectApplication(event: Event) {
         this.address = event.data.contractAddress
         
         this.round = event.data.round
@@ -52,11 +49,15 @@ class RoundApplication extends LiveObject {
 
         const [protocol, pointer] = event.data.applicationMetaPtr || []
 
+        const tx = await this.getCurrentTransaction()
+        this.sender = tx?.from
+
         this.metaProtocol = Number(protocol)
         this.metaPointer = pointer
 
         this.project = event.data.project
         this.createdAt = event.data.blockTimestamp
+        this.updatedAt = event.data.blockTimestamp
 
         this.addContractToGroup(this.address, 'allo.RoundApplication')
     }
