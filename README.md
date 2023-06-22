@@ -81,6 +81,7 @@ interface RoundApplication {
 * **Chains**: 1,5
 * **Affected By**:
     * `allo.Round.NewProjectApplication`
+    * `allo.Round.ApplicationStatusesUpdated`
 
 
 # Allo Contracts
