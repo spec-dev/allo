@@ -1,4 +1,4 @@
-import { LiveObject, Spec, Property, BigInt, Event, OnEvent, Address, Timestamp } from '@spec.dev/core'
+import { LiveObject, Spec, Property, BigInt, Event, OnEvent, Address, Json, Timestamp } from '@spec.dev/core'
 
 /**
  * A Round on the Allo protocol.
@@ -17,7 +17,7 @@ class Round extends LiveObject {
 
     // Address of the voting strategy contract.
     @Property()
-    votingStrategyAddress: string
+    votingStrategyAddress: Address
 
     // Address of the payout contract.
     @Property()
@@ -57,15 +57,15 @@ class Round extends LiveObject {
 
     // Pointer to the round's off-chain metadata.
     @Property()
-    roundMetaPtr: string
+    roundMetaPtr: Json
 
     // Pointer to the application's off-chain metadata.
     @Property()
-    applicationMetaPtr: string
+    applicationMetaPtr: Json
 
     // Pointer to the project's off-chain metadata.
     @Property()
-    projectsMetaPtr: string
+    projectsMetaPtr: Json
 
     // When the round was created.
     @Property({ canUpdate: false })
