@@ -1,4 +1,4 @@
-import { LiveObject, Spec, Timestamp, Event, Property, Address, OnEvent } from '@spec.dev/core'
+import { LiveObject, Spec, Timestamp, Event, Property, Address, Json, OnEvent } from '@spec.dev/core'
 
 /**
  * A Program on the Allo protocol.
@@ -7,34 +7,33 @@ import { LiveObject, Spec, Timestamp, Event, Property, Address, OnEvent } from '
     uniqueBy: ['address', 'chainId']
 })
 class Program extends LiveObject {
-    // Address of the program
+    // Address of the program.
     @Property()
     address: Address
 
-	@Property({ canUpdate: false })
-    createdAt: Timestamp
+    // Pointer to the program's off-chain metadata.
+    @Property()
+    metaPtr: Json
 
-	@Property()
-    updatedAt: Timestamp
+    // When the program was first created.
+    @Property({ canUpdate: false })
+    createdAt: Timestamp
 
     // ==== Event Handlers ===================
 
     @OnEvent('allo.ProgramFactory.ProgramCreated')
-    programCreated(event: Event) {
+    onProgramCreated(event: Event) {
         this.address = event.data.programContractAddress
-        this.createdAt = event.data.blockTimestamp
+        this.createdAt = this.blockTimestamp
+        // TODO: Bind to program contract and call .metaPtr() to get it.
         this.addContractToGroup(this.address, 'allo.Program')
     }
 
+    // Handle these to auto-update block timestamp & number.
     @OnEvent('allo.Program.RoleGranted')
-    handleRoleGranted(event: Event) {
-        this.updatedAt = event.data.blockTimestamp
-    }
-
     @OnEvent('allo.Program.RoleRevoked')
-    handleRoleRevoked(event: Event) {
-        this.updatedAt = event.data.blockTimestamp
+    onRoleChange(event: Event) {
+        this.address = event.origin.contractAddress
     }
-
 }
 export default Program

@@ -3,7 +3,7 @@
     "name": "ProgramAccount",
     "version": "0.0.1",
     "displayName": "ProgramAccount",
-    "description": "",
+    "description": "An operator of an Allo Program with a specific role.",
     "chains": [
         1,
         5

@@ -3,7 +3,7 @@
     "name": "ProgramRole",
     "version": "0.0.1",
     "displayName": "ProgramRole",
-    "description": "",
+    "description": "A role assigned to a Program on the Allo protocol.",
     "chains": [
         1,
         5

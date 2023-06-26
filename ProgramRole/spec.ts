@@ -1,18 +1,21 @@
 import { LiveObject, Spec, Property, Address, OnEvent, Event } from '@spec.dev/core'
 
 /**
- * TODO
+ * A role assigned to a Program on the Allo protocol.
  */
 @Spec({ 
     uniqueBy: ['program', 'role', 'chainId']
 })
 class ProgramRole extends LiveObject {
-
+    // Program address.
     @Property()
     program: Address
 
-	@Property()
+    // Role identifier.
+    @Property()
     role: string
+
+    // ==== Event Handlers ===================
 
     @OnEvent('allo.Program.RoleGranted')
     onRoleGranted(event: Event) {
