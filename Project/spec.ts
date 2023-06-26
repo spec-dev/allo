@@ -1,7 +1,7 @@
-import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, BigInt } from '@spec.dev/core'
+import { LiveObject, Spec, Property, Event, OnEvent, BigInt, Json } from '@spec.dev/core'
 
 /**
- * A Project that can apply for a Round on the Allo protocol.
+ * A Project on the Allo protocol.
  */
 @Spec({ 
     uniqueBy: ['projectId', 'chainId']
@@ -11,29 +11,21 @@ class Project extends LiveObject {
     @Property()
     projectId: BigInt
 
-    // Protocol where metadata is stored off-chain.
+    // Pointer to the project's off-chain metadata.
     @Property()
-    metaProtocol: number
-
-    // Unique pointer to off-chain metadata.
-    @Property()
-    metaPointer: string
+    metaPtr: Json
 
     // ==== Event Handlers ===================
 
-    @OnAllEvents()
-    setCommonProperties(event: Event) {
+    @OnEvent('allo.ProjectRegistry.ProjectCreated')
+    createProject(event: Event) {
         this.projectId = BigInt.from(event.data.projectID)
     }
 
-    @OnEvent('allo.ProjectRegistry.ProjectCreated')
-    createProject() { /* Will auto-save so we're all done :) */ }
-
     @OnEvent('allo.ProjectRegistry.MetadataUpdated')
     updateMetadata(event: Event) {
-        const [protocol, pointer] = event.data.metaPtr || []
-        this.metaProtocol = Number(protocol)
-        this.metaPointer = pointer
+        this.projectId = BigInt.from(event.data.projectID)
+        this.metaPtr = event.data.metaPtr || []
     }
 }
 

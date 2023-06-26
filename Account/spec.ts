@@ -6,16 +6,28 @@ import { LiveObject, Spec, Property, Address, OnEvent, Event } from '@spec.dev/c
 @Spec({ 
     uniqueBy: ['address', 'chainId'] 
 })
-class Account extends LiveObject { 
-    // The address of the Account.
+class Account extends LiveObject {
+    // Address of the account.
     @Property()
     address: Address
 
     // ==== Event Handlers ===================
 
     @OnEvent('allo.ProjectRegistry.ProjectCreated')
-    registerAccount(event: Event) {
+    @OnEvent('allo.ProjectRegistry.OwnerAdded')
+    createFromOwner(event: Event) {
         this.address = event.data.owner
+    }
+
+    @OnEvent('allo.Program.RoleGranted')
+    @OnEvent('allo.Round.RoleGranted')
+    createFromAccount(event: Event) {
+        this.address = event.data.account
+    }
+
+    @OnEvent('allo.Round.NewProjectApplication')
+    async createFromSender() {
+        this.address = (await this.getCurrentTransaction())?.from
     }
 }
 

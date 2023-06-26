@@ -1,9 +1,9 @@
 import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, Address, BigInt } from '@spec.dev/core'
 
 /**
- * One of the owners of an Allo Project.
+ * An owner of a Project on the Allo protocol
  */
-@Spec({ 
+@Spec({
     uniqueBy: ['projectId', 'accountAddress', 'chainId'] 
 })
 class ProjectOwner extends LiveObject {

@@ -1,0 +1,11 @@
+{
+    "namespace": "allo",
+    "name": "RoundRole",
+    "version": "0.0.1",
+    "displayName": "RoundRole",
+    "description": "A role assigned to a Round on the Allo protocol",
+    "chains": [
+        1,
+        5
+    ]
+}

@@ -27,8 +27,7 @@ A Project that can apply for a Round on the Allo protocol. [[spec](Project/spec.
 ```typescript
 interface Project {
     projectId: BigInt
-    metaProtocol: number
-    metaPointer: string
+    metaPtr: Json
     blockHash: BlockHash
     blockNumber: BlockNumber
     blockTimestamp: Timestamp

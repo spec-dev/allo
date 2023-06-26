@@ -1,0 +1,11 @@
+{
+    "namespace": "allo",
+    "name": "RoundAccount",
+    "version": "0.0.1",
+    "displayName": "Allo Round Accounts",
+    "description": "Role-specific round operators on the Allo protocol",
+    "chains": [
+        1,
+        5
+    ]
+}
