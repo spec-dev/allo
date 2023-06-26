@@ -1,22 +1,28 @@
-import { LiveObject, Spec, Property, Event, OnEvent, Address } from '@spec.dev/core'
+import { LiveObject, Spec, Property, Address, OnEvent, Event } from '@spec.dev/core'
 
 /**
- * TODO
+ * A role assigned to a Round on the Allo protocol.
  */
 @Spec({ 
-    uniqueBy: ['someProperty', 'chainId'] 
+    uniqueBy: ['roundAddress', 'role', 'chainId']
 })
 class RoundRole extends LiveObject {
-    // TODO
+    // Round address.
     @Property()
-    someProperty: Address
+    roundAddress: Address
+
+    // Role identifier.
+    @Property()
+    role: string
 
     // ==== Event Handlers ===================
 
-    // @OnEvent('namespace.ContractName.EventName')
-    // onSomeEvent(event: Event) {
-    //     this.someProperty = event.data.someProperty
-    // }
+    @OnEvent('allo.Round.RoleGranted')
+    @OnEvent('allo.Round.RoleRevoked')
+    createRole(event: Event) {
+        this.roundAddress = event.origin.contractAddress
+        this.role = event.data.role
+    }
 }
 
 export default RoundRole

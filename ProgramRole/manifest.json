@@ -2,7 +2,7 @@
     "namespace": "allo",
     "name": "ProgramRole",
     "version": "0.0.1",
-    "displayName": "ProgramRole",
+    "displayName": "Allo Program Roles",
     "description": "A role assigned to a Program on the Allo protocol.",
     "chains": [
         1,

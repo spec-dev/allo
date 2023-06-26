@@ -27,8 +27,7 @@ A Project that can apply for a Round on the Allo protocol. [[spec](Project/spec.
 ```typescript
 interface Project {
     projectId: BigInt
-    metaProtocol: number
-    metaPointer: string
+    metaPtr: Json
     blockHash: BlockHash
     blockNumber: BlockNumber
     blockTimestamp: Timestamp
@@ -62,27 +61,6 @@ interface ProjectOwner {
     * `allo.ProjectRegistry.ProjectCreated`
     * `allo.ProjectRegistry.OwnerAdded`
     * `allo.ProjectRegistry.OwnerRemoved`
-
-```typescript
-interface RoundApplication {
-    round: Address
-    applicationIndex: number
-    address: Address
-    project: string
-    status: number
-    metaProtocol: number
-    metaPointer: string
-    sender: Address
-    createdAt: Timestamp
-    updatedAt: Timestamp
-}
-```
-* **Unique By**: `(round, applicationIndex, chainId)`
-* **Chains**: 1,5
-* **Affected By**:
-    * `allo.Round.NewProjectApplication`
-    * `allo.Round.ApplicationStatusesUpdated`
-
 
 # Allo Contracts
 

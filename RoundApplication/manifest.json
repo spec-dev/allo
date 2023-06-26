@@ -2,8 +2,8 @@
     "namespace": "allo",
     "name": "RoundApplication",
     "version": "0.0.1",
-    "displayName": "RoundApplication",
-    "description": "",
+    "displayName": "Allo Round Applications",
+    "description": "Round applications for projects on the Allo protocol",
     "chains": [
         1,
         5

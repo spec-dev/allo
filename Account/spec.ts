@@ -15,20 +15,19 @@ class Account extends LiveObject {
 
     @OnEvent('allo.ProjectRegistry.ProjectCreated')
     @OnEvent('allo.ProjectRegistry.OwnerAdded')
-    onNewOwner(event: Event) {
+    createFromOwner(event: Event) {
         this.address = event.data.owner
     }
 
     @OnEvent('allo.Program.RoleGranted')
     @OnEvent('allo.Round.RoleGranted')
-    onRoleGranted(event: Event) {
+    createFromAccount(event: Event) {
         this.address = event.data.account
     }
 
     @OnEvent('allo.Round.NewProjectApplication')
-    async onNewApplication() {
-        const tx = await this.getCurrentTransaction()
-        this.address = tx?.from
+    async createFromSender() {
+        this.address = (await this.getCurrentTransaction())?.from
     }
 }
 

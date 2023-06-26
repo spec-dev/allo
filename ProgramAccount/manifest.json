@@ -2,8 +2,8 @@
     "namespace": "allo",
     "name": "ProgramAccount",
     "version": "0.0.1",
-    "displayName": "ProgramAccount",
-    "description": "An operator of an Allo Program with a specific role.",
+    "displayName": "Allo Program Accounts",
+    "description": "Role-specific program operators on the Allo protocol.",
     "chains": [
         1,
         5

@@ -4,22 +4,22 @@ import { LiveObject, Spec, Property, Address, OnEvent, Event, OnAllEvents } from
  * An operator of an Allo Program with a specific role.
  */
 @Spec({ 
-    uniqueBy: ['program', 'account', 'role', 'chainId']
+    uniqueBy: ['programAddress', 'accountAddress', 'role', 'chainId']
 })
 class ProgramAccount extends LiveObject {
     // Program address.
     @Property()
-    program: Address
+    programAddress: Address
 
     // Operator address.
     @Property()
-    account: Address
+    accountAddress: Address
 
     // Role identifier.
     @Property()
     role: string
 
-    // Whether this role-based access was revoked.
+    // Whether the role was revoked.
     @Property({ default: false })
     wasRevoked: boolean
 
@@ -27,18 +27,18 @@ class ProgramAccount extends LiveObject {
 
     @OnAllEvents()
     setCommonProperties(event: Event) {
-        this.program = event.origin.contractAddress
-        this.account = event.data.account
+        this.programAddress = event.origin.contractAddress
+        this.accountAddress = event.data.account
         this.role = event.data.role
     }
 
     @OnEvent('allo.Program.RoleGranted')
-    onRoleGranted() {
+    grantRole() {
         this.wasRevoked = false
     }
 
     @OnEvent('allo.Program.RoleRevoked')
-    onRoleRevoked() {
+    revokeRole() {
         this.wasRevoked = true
     }
 }

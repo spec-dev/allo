@@ -22,17 +22,16 @@ class Program extends LiveObject {
     // ==== Event Handlers ===================
 
     @OnEvent('allo.ProgramFactory.ProgramCreated')
-    onProgramCreated(event: Event) {
+    createProgram(event: Event) {
         this.address = event.data.programContractAddress
         this.createdAt = this.blockTimestamp
         // TODO: Bind to program contract and call .metaPtr() to get it.
         this.addContractToGroup(this.address, 'allo.Program')
     }
 
-    // Handle these to auto-update block timestamp & number.
     @OnEvent('allo.Program.RoleGranted')
     @OnEvent('allo.Program.RoleRevoked')
-    onRoleChange(event: Event) {
+    trackUpdate(event: Event) {
         this.address = event.origin.contractAddress
     }
 }

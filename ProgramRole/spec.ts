@@ -4,12 +4,12 @@ import { LiveObject, Spec, Property, Address, OnEvent, Event } from '@spec.dev/c
  * A role assigned to a Program on the Allo protocol.
  */
 @Spec({ 
-    uniqueBy: ['program', 'role', 'chainId']
+    uniqueBy: ['programAddress', 'role', 'chainId']
 })
 class ProgramRole extends LiveObject {
     // Program address.
     @Property()
-    program: Address
+    programAddress: Address
 
     // Role identifier.
     @Property()
@@ -18,9 +18,10 @@ class ProgramRole extends LiveObject {
     // ==== Event Handlers ===================
 
     @OnEvent('allo.Program.RoleGranted')
-    onRoleGranted(event: Event) {
+    @OnEvent('allo.Program.RoleRevoked')
+    createRole(event: Event) {
+        this.programAddress = event.origin.contractAddress
         this.role = event.data.role
-        this.program = event.origin.contractAddress
     }
 }
 

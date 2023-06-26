@@ -1,68 +1,54 @@
-import { LiveObject, Spec, Property, Event, OnEvent, Address, Timestamp } from '@spec.dev/core'
+import { LiveObject, Spec, Property, Event, OnEvent, Address, Timestamp, BigInt, Json } from '@spec.dev/core'
 
 /**
  * Round Application for a Project on the Allo protocol.
  */
 @Spec({ 
-    uniqueBy: ['round', 'applicationIndex', 'chainId'] 
+    uniqueBy: ['roundAddress', 'applicationIndex', 'chainId'] 
 })
 class RoundApplication extends LiveObject {
+    // Address of the round.
     @Property()
-    round: Address
+    roundAddress: Address
 
+    // Unique index of the application for the round.
     @Property()
     applicationIndex: number
 
+    // The id of the project associated with the application.
     @Property()
-    address: Address
+    projectId: BigInt
 
-    @Property()
-    project: string
-
+    // Application status.
     @Property()
     status: number
 
+    // Pointer to the application's off-chain metadata.
     @Property()
-    metaProtocol: number
+    metaPtr: Json
 
-    @Property()
-    metaPointer: string
-
+    // Address that submitted the transaction.
     @Property()
     sender: Address
 
-    @Property()
+    // When the application was created.
+    @Property({ canUpdate: false })
     createdAt: Timestamp
-
-    @Property()
-    updatedAt: Timestamp
 
     // ==== Event Handlers ===================
 
     @OnEvent('allo.Round.NewProjectApplication')
-    async onNewProjectApplication(event: Event) {
-        this.address = event.data.contractAddress
-        
-        this.round = event.data.round
+    async createRoundApplication(event: Event) {
+        this.roundAddress = event.origin.contractAddress
         this.applicationIndex = event.data.applicationIndex
-        this.chainId = event.data.chainId
-
-        const [protocol, pointer] = event.data.applicationMetaPtr || []
-
-        const tx = await this.getCurrentTransaction()
-        this.sender = tx?.from
-
-        this.metaProtocol = Number(protocol)
-        this.metaPointer = pointer
+        this.projectId = BigInt.from(event.data.projectID)
+        this.metaPtr = event.data.applicationMetaPtr || []
+        this.sender = (await this.getCurrentTransaction())?.from
         this.status = 0
-
-        this.project = event.data.project
-        this.createdAt = event.origin.blockTimestamp
-        this.updatedAt = event.origin.blockTimestamp
-
-        this.addContractToGroup(this.address, 'allo.RoundApplication')
+        this.createdAt = this.blockTimestamp
     }
 
+    // TODO: Sync with @allo team.
     @OnEvent('allo.Round.ApplicationStatusesUpdated')
     onApplicationStatusesUpdated(event: Event) {
         this.status = event.data.status
