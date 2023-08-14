@@ -27,6 +27,7 @@ $ spec add contracts
 
 #### Example: `allo.ProjectRegistry`
 
+https://github.com/spec-dev/allo/assets/6496306/260114f8-9dbe-48a0-86cb-c5d9d841d68a
 
 ## Factory contract groups
 
@@ -56,6 +57,7 @@ This will show you all contract addresses currently in the group, organized by c
 
 #### Example: `allo.ProjectRegistry`
 
+https://github.com/spec-dev/allo/assets/6496306/45fba462-0f20-4e43-84fa-bbdb485ea03e
 
 ## Viewing the events in a group
 
@@ -66,4 +68,6 @@ $ spec get events <namespace.ContractGroup>
 ```
 
 #### Example: `allo.ProjectRegistry`
+
+https://github.com/spec-dev/allo/assets/6496306/7645af22-3045-4056-acf5-f6ac59244354
 
