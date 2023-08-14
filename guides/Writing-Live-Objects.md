@@ -79,7 +79,6 @@ $ spec new object
 
 **Example: Allo Project**
 
-https://github.com/spec-dev/allo/assets/6496306/f87950e5-3d40-4d30-ae0d-d35e24d2ccd9
 
 This command will generate a new folder with the basic template for a Live Object.
 
