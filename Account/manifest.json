@@ -1,0 +1,8 @@
+{
+    "namespace": "allo",
+    "name": "Account",
+    "version": "0.0.1",
+    "displayName": "Allo Accounts",
+    "description": "Accounts on the Allo protocol.",
+    "chains": [1, 5]
+}

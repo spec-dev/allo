@@ -1,0 +1,12 @@
+{
+    "namespace": "allo",
+    "name": "Round",
+    "version": "0.0.1",
+    "displayName": "Allo Rounds",
+    "description": "Rounds on the Allo protocol",
+    "chains": [
+        1,
+        5
+    ],
+    "isContractFactory": true
+}

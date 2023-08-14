@@ -1,0 +1,8 @@
+{
+    "namespace": "allo",
+    "name": "Project",
+    "version": "0.0.1",
+    "displayName": "Allo Projects",
+    "description": "A Project on the Allo protocol",
+    "chains": [1, 5]
+}

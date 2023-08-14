@@ -1,0 +1,8 @@
+{
+    "namespace": "allo",
+    "name": "ProjectOwner",
+    "version": "0.0.1",
+    "displayName": "Allo Project Owners",
+    "description": "An owner of a Project on the Allo protocol",
+    "chains": [1, 5]
+}

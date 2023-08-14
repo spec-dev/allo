@@ -1,0 +1,12 @@
+{
+    "namespace": "allo",
+    "name": "Program",
+    "version": "0.0.1",
+    "displayName": "Allo Programs",
+    "description": "Programs on the Allo protocol.",
+    "chains": [
+        1,
+        5
+    ],
+    "isContractFactory": true
+}
