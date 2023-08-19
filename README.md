@@ -11,7 +11,7 @@ End-to-end guide for writing and testing Live Objects.
 3. [Registering Contract Groups](/guides/Contract-Groups.md)
 4. [Testing Live Objects](/guides/Testing-Live-Objects.md)
 
-## Examples
+## Highlights
 
 #### Instant Contract Event Tables
 
