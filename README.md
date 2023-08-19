@@ -10,3 +10,11 @@ End-to-end guide for writing and testing Live Objects.
 2. [Writing Live Objects](/guides/Writing-Live-Objects.md)
 3. [Registering Contract Groups](/guides/Contract-Groups.md)
 4. [Testing Live Objects](/guides/Testing-Live-Objects.md)
+
+## Examples
+
+#### Instant Contract Event Tables
+
+When you register your contracts in the Spec ecosystem, all of your contract events are instantly made available for use as Live Tables. This makes it insanely easy to go from ABI -> Live Postgres Tables. 
+
+https://github.com/spec-dev/allo/assets/6496306/84b00812-fb7e-465e-89a5-f97712d40ea4
