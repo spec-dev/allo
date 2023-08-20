@@ -351,3 +351,10 @@ updateMetadata(event: Event) {
 ```
 
 With both upsert requirements met, a `Project` instance will now be auto-saved after each of the above event handlers.
+
+# Coming...
+
+- imports / referencing other live object classes
+- lookups, manual saves, transactions
+- contract calls
+- metadata resolution

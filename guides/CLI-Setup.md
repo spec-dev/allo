@@ -41,4 +41,4 @@ $ spec show user
 $ spec show project
 ```
 
-Alright, now let's [write some Live Objects!](./Writing-Live-Objects.md)
+Alright, now let's [write some Live Objects](./Writing-Live-Objects.md)!
