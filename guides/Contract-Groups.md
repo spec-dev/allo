@@ -45,7 +45,10 @@ createPool(event: Event) {
     this.address = event.data.roundAddress
     this.programAddress = event.data.ownedBy
     this.createdAt = this.blockTimestamp
-    this.addContractToGroup(this.address, 'allo.Round')  // add new round address to existing contract group
+
+    // Add the new round address to the "allo.Round" contract group so that 
+    // Spec's indexers will start picking up events for this new contract address.
+    this.addContractToGroup(this.address, 'allo.Round')
 }
 ```
 
@@ -75,3 +78,9 @@ $ spec get events <namespace.ContractName>
 
 https://github.com/spec-dev/allo/assets/6496306/7645af22-3045-4056-acf5-f6ac59244354
 
+
+## Next Steps
+
+Now that you've added your contracts to Spec, you can leverage their events to index higher-level data models (i.e. Live Objects). 
+
+[How to write Live Objects](./Writing-Live-Objects.md)
