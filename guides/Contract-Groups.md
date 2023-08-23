@@ -1,8 +1,8 @@
 # Contract Groups
 
-All data on Spec is organized by context rather than by chain. Because of this, when a protocol is onboarded into the Spec ecosystem, all of its contracts are organized into <b>Contract Groups</b> that are chain-agnostic and contextually specific (e.g. `uniswapv3.Pool`, `gitcoin.Timelock`, `allo.ProjectRegistry`, etc.).
+All data on Spec is organized by context rather than by chain. Because of this, when a protocol is onboarded into the Spec ecosystem, all of its contracts are organized into <b>Contract Groups</b> that are chain-agnostic and contextually specific (e.g. `uniswapv3.Pool`, `gitcoin.Timelock`, `allo.ProjectRegistry`, etc.). 
 
-Technically speaking, a Contract Group as a set of contract addresses that all share a common ABI, regardless of deployment chain. You can visualize one of these groups like so:
+Technically speaking, a Contract Group is a set of contract addresses that all share a common ABI, regardless of deployment chain. You can visualize a Contract Group like this:
 
 ![](https://dbjzhg7yxqn0y.cloudfront.net/cg.png)
 
