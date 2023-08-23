@@ -6,6 +6,10 @@ Technically speaking, a Contract Group is a set of contract addresses that all s
 
 ![](https://dbjzhg7yxqn0y.cloudfront.net/cg.png)
 
+Contract Groups unlock a style of indexing that is concise, intuitive, and powerful, especially when consuming events across multiple chains. Once a contract group is formed, you can easily tap into any event in the group *by name* (e.g. `allo.ProjectRegistry.ProjectCreated`).
+
+## Permissions
+
 Every contract group belongs to particular [Namespace](./Writing-Live-Objects.md#namespaces) — such as `allo`, `gitcoin`, etc. Everyone on Spec has read access to all contract groups, while write access is reserved for members of the namespace.
 
 ## Requirements
@@ -50,7 +54,7 @@ createPool(event: Event) {
 To view the contracts that exist within a particular group, use the following CLI command:
 
 ```bash
-$ spec get group <namespace.ContractGroup>
+$ spec get group <namespace.ContractName>
 ```
 
 This will show you all contract addresses currently in the group, organized by chain.
@@ -64,7 +68,7 @@ https://github.com/spec-dev/allo/assets/6496306/45fba462-0f20-4e43-84fa-bbdb485e
 To view the events that exist within a particular group, use the following CLI command:
 
 ```bash
-$ spec get events <namespace.ContractGroup>
+$ spec get events <namespace.ContractName>
 ```
 
 #### Example: `allo.ProjectRegistry`
