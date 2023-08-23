@@ -12,7 +12,7 @@ Every contract group belongs to particular [Namespace](./Writing-Live-Objects.md
 
 * [Spec CLI](./CLI-Setup.md)
 
-## Adding contracts to a group
+## Adding contracts to a group manually
 
 To add contracts to a group, whether existing or new, run the following CLI command and follow the prompts:
 
@@ -22,14 +22,14 @@ $ spec add contracts
 
 * Chain id — The chain id associated with the new contract addresses
 * Contract addresses — The deployment addresses of the contracts you wish to add
-* Group name — The full name of the contract group
-* Path to ABI — The ABI of the contracts you are adding
+* Group name — The full name of the contract group (with namespace)
+* Path to ABI — The ABI for the group
 
 #### Example: `allo.ProjectRegistry`
 
 https://github.com/spec-dev/allo/assets/6496306/260114f8-9dbe-48a0-86cb-c5d9d841d68a
 
-## Factory contract groups
+## Adding contracts to a group dynamically (factory groups)
 
 Many protocols implement a factory pattern with at least one of their contracts. To account for this, Spec has a way of dynamically adding new contracts to an existing group, on-the-fly. Currently, this is done within a Live Object event handler, using a class method called `addContractToGroup`.
 
