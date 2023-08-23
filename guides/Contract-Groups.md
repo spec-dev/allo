@@ -81,6 +81,4 @@ https://github.com/spec-dev/allo/assets/6496306/7645af22-3045-4056-acf5-f6ac5924
 
 ## Next Steps
 
-Now that you've added your contracts to Spec, you can leverage their events to index higher-level data models (i.e. Live Objects). 
-
-[How to write Live Objects](./Writing-Live-Objects.md)
+Now that you've added your contracts to Spec, you can leverage their events to index higher-level data models (i.e. Live Objects). [Learn how to write Live Objects](./Writing-Live-Objects.md).
