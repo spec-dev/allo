@@ -41,7 +41,7 @@ Many protocols implement a factory pattern with at least one of their contracts.
 
 ```typescript
 @OnEvent('allo.RoundFactory.RoundCreated')
-createPool(event: Event) {
+createRound(event: Event) {
     this.address = event.data.roundAddress
     this.programAddress = event.data.ownedBy
     this.createdAt = this.blockTimestamp
@@ -50,6 +50,12 @@ createPool(event: Event) {
     // Spec's indexers will start picking up events for this new contract address.
     this.addContractToGroup(this.address, 'allo.Round')
 }
+```
+
+The only requirement when using `addContractToGroup` is that the contract group itself must already exist. To create a new *empty* contract group to hold these factory-produced contracts, you can use the following command:
+
+```bash
+$ spec create group
 ```
 
 ## Viewing the contract addresses in a group
