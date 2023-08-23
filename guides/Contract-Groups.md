@@ -1,12 +1,12 @@
 # Contract Groups
 
-Because the Spec ecosystem is inherently multi-chain, whenever a new protocol is onboarded, all of its contracts are registered into what we call, contract "groups". A **contract group** is a set of contract addresses that all share a common ABI, regardless of deployment chain.
+All data on Spec is organized by context rather than by chain. Because of this, when a protocol is onboarded into the Spec ecosystem, all of its contracts are organized into <b>Contract Groups</b> that are chain-agnostic and contextually specific (e.g. `uniswapv3.Pool`, `gitcoin.Timelock`, `allo.ProjectRegistry`, etc.).
+
+Technically speaking, a Contract Group as a set of contract addresses that all share a common ABI, regardless of deployment chain. You can visualize one of these groups like so:
 
 ![](https://dbjzhg7yxqn0y.cloudfront.net/cg.png)
 
-This simple abstraction unlocks a writing style that is concise, intuitive, and powerful, especially when indexing the same contextual data across multiple chains.
-
-Every contract group exists under a particular [Namespace](./Writing-Live-Objects.md#namespaces) — such as `allo`, `gitcoin`, etc. — and only members of that namespace have the write permissions needed to create them.
+Every Contract Group exists under a particular [Namespace](./Writing-Live-Objects.md#namespaces) — such as `allo`, `gitcoin`, etc. Everyone on Spec has read-access to all Contract Groups in the ecosystem, but only members of the group's namespace have write permissions.
 
 ## Requirements
 

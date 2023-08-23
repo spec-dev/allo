@@ -1,6 +1,6 @@
 # Writing Live Objects
 
-Before diving head-first into writing Live Objects, we highly recommend checking out our [Introducing Spec](https://spec.dev/blog/introducing-spec) blog post as a primer on [Live Tables](https://spec.dev/blog/introducing-spec#live-tables), [Live Objects](https://spec.dev/blog/introducing-spec#live-objects), and the Spec ecosystem as a whole.
+Before diving head-first into writing Live Objects, we highly recommend checking out our [Introducing Spec](https://spec.dev/blog/introducing-spec) blog post as a primer on [Live Tables](https://spec.dev/blog/introducing-spec#live-tables), [Live Objects](https://spec.dev/blog/introducing-spec#live-objects), [Contract Groups](https://spec.dev/blog/introducing-spec#contract-groups), and the overall Spec ecosystem.
 
 ### Table of Contents
 

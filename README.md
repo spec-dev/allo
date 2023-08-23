@@ -7,8 +7,8 @@ Live Objects on [Spec](https://spec.dev/blog) for the [Allo Protocol](https://do
 End-to-end guide for writing and testing Live Objects.
 
 1. [Installing the CLI](/guides/CLI-Setup.md)
+3. [Creating Contract Groups](/guides/Contract-Groups.md)
 2. [Writing Live Objects](/guides/Writing-Live-Objects.md)
-3. [Registering Contract Groups](/guides/Contract-Groups.md)
 4. [Testing Live Objects](/guides/Testing-Live-Objects.md)
 
 ## Highlights
