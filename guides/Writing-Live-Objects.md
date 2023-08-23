@@ -196,7 +196,7 @@ All of these properties are _automatically set for you_ any time your Live Objec
 ### Property Types
 
 The type you choose for a Live Object property is important, because it tells Spec what Postgres column type to use for underlying data storage.
-Not only that, some of Spec's custom property types provide contextual information to other developers about what type of value a given property holds.
+Not only that, some of Spec's custom property types provide contextual information to other developers about what type of web3 value a given property holds.
 
 #### Custom types (need to be imported)
 
@@ -358,3 +358,7 @@ With both upsert requirements met, a `Project` instance will now be auto-saved a
 - lookups, manual saves, transactions
 - contract calls
 - metadata resolution
+
+# Next Steps
+
+Now that you know how to write Live Objects, let's [learn how to test them](./Testing-Live-Objects.md).

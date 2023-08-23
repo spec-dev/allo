@@ -41,4 +41,6 @@ $ spec show user
 $ spec show project
 ```
 
-Alright, now let's [write some Live Objects](./Writing-Live-Objects.md)!
+## Next Steps
+
+Add your contracts into the Spec ecosystem as [Contract Groups](./Contract-Groups.md).
