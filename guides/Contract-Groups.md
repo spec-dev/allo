@@ -6,7 +6,7 @@ Technically speaking, a Contract Group is a set of contract addresses that all s
 
 ![](https://dbjzhg7yxqn0y.cloudfront.net/cg.png)
 
-Every Contract Group exists under a particular [Namespace](./Writing-Live-Objects.md#namespaces) — such as `allo`, `gitcoin`, etc. Everyone on Spec has read-access to all Contract Groups in the ecosystem, but only members of the group's namespace have write permissions.
+Every contract group belongs to particular [Namespace](./Writing-Live-Objects.md#namespaces) — such as `allo`, `gitcoin`, etc. Everyone on Spec has read access to all contract groups, while write access is reserved for members of the namespace.
 
 ## Requirements
 
