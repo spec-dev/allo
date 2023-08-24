@@ -46,8 +46,8 @@ createRound(event: Event) {
     this.programAddress = event.data.ownedBy
     this.createdAt = this.blockTimestamp
 
-    // Add the new round address to the "allo.Round" contract group so that 
-    // Spec's indexers will start picking up events for this new contract address.
+    // Add this new round address to the "allo.Round" contract group 
+    // so that Spec's indexers will start picking up its events.
     this.addContractToGroup(this.address, 'allo.Round')
 }
 ```
