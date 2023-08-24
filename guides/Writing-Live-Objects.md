@@ -319,7 +319,7 @@ When a contract event is indexed, Spec first creates a new instance of your Live
 
 ## Call Handlers
 
-Sometimes a contract event doesn't contain all of the data you need to properly index a Live Object. In some cases, data that's missing from an event actually exists, instead, inside the inputs or outputs of a contract function call. Luckily, Spec has call handlers as well, exactly for this purpose.
+Sometimes a contract event doesn't contain all of the data you need to properly index a Live Object. In some cases, data that's missing from an event actually exists, instead, inside the inputs or outputs of a contract function call. Luckily, Spec has call handlers for this exact reason.
 
 The only difference between a call handler and an event handler is the decorator you need to use and the type/structure of your handler's input:
 
@@ -340,7 +340,7 @@ createSplit(call: Call) {
 
 ### Call Structure
 
-The call data structure contains data from both input(s) and output(s) of a contract function call. Values for `inputArgs` and `outputArgs` are guaranteed to exist (if the function actually has input/output data), while the `inputs` and `outputs` call properties will only hold values if the function has *named* arguments.
+The call data structure contains data from both input(s) and output(s) of a contract function call. Values for `inputArgs` and `outputArgs` are guaranteed to exist (if the function actually has input/output data), while the `inputs` and `outputs` dictionaries will only hold values if the function has *named* arguments.
 
 Contract call interface:
 
