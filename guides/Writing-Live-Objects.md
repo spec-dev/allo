@@ -11,9 +11,10 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [Creating Live Objects](#creating-live-objects)
 * [File Structure](#file-structure)
 * [Class Structure](#class-structure)
-* [Saving](#saving)
 * [Imports](#imports)
+* [Class Instantiation](#class-instantiation)
 * [Lookups](#lookups)
+* [Saving](#saving)
 * [Next Steps](#next-steps)
 
 # Requirements
@@ -411,6 +412,62 @@ Example:
 }
 ```
 
+# Imports
+
+How to import other files, other Live Objects, or external dependencies.
+
+## Local import syntax
+
+Because Live Objects run using the Deno runtime, the syntax for importing other files is slightly different. With Deno, you need to actually add the `.ts` extension on any imports you write.
+
+**Example — Node.js vs. Deno**
+```typescript
+// Node.js
+import { something } from './somewhere'
+
+// Deno
+import { something } from './somewhere.ts'
+```
+
+## Importing other Live Objects
+
+> [!NOTE]
+> Definitely read through the [Design Pattern](#design-pattern) section of this doc if you haven't already. Remember that Live Objects should _ideally_ be as independent as possible, with only loose relationships. It's better to have multiple Live Objects 
+handle the same event than to group everything into a single handler. **But**, if you need to do any type of lookups/queries for a different Live Object, importing should be pretty easy:
+
+```typescript
+import AnotherLiveObject from '../AnotherLiveObject/spec.ts'
+```
+
+# Class Instantiation
+
+# Lookups
+
+## Loading the "current" record in full
+
+In some situations, it's necessary to find an existing Live Object record and load all of its data into the current class. Doing this requires 2 steps:
+
+1. Make sure all `uniqueBy` properties are set on the class
+2. Call `await this.load()`
+
+**Example:**<br>
+```typescript
+@OnEvent('nsp.Contract.Event')
+async onSomeEvent(event: Event) {
+    // Set unique properties.
+    this.someUniqueProperty = event.data.something
+
+    // Load the full record into `this`. 
+    const doesExist = await this.load()
+
+    // If the record exists, all @Properties of `this` Live Object 
+    // class will now hold values (are automatically set).
+}
+```
+
+> [!NOTE]
+> This shouldn't actually be necessary unless you need a property value that isn't present on the event itself. Most of the time you can just set property values using event data and let Spec auto-upsert the Live Object record for you.
+
 # Saving
 
 Within a Live Object class, all save operations translate to Postgres **upserts**. For those not familiar, "upsert" is another word for "insert-or-update", which functionality-wise translates to "Create this record if it doesn't exist yet....otherwise, just update it". Upserting is incredibly efficient, as it removes the need to query a table solely to see if a record exists before choosing between insert or update. 
@@ -476,60 +533,6 @@ async createProject(event: Event) {
 One other option instead of setting `autoSave: false` is to simply `return false` from your handler function itself. These are essentially equivalent.
 
 Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
-
-# Imports
-
-How to import other files, other Live Objects, or external dependencies.
-
-## Local import syntax
-
-Because Live Objects run using the Deno runtime, the syntax for importing other files is slightly different. With Deno, you need to actually add the `.ts` extension on any imports you write.
-
-**Example — Node.js vs. Deno**
-```typescript
-// Node.js
-import { something } from './somewhere'
-
-// Deno
-import { something } from './somewhere.ts'
-```
-
-## Importing other Live Objects
-
-> [!NOTE]
-> Definitely read through the [Design Pattern](#design-pattern) section of this doc if you haven't already. Remember that Live Objects should _ideally_ be as independent as possible, with only loose relationships. It's better to have multiple Live Objects 
-handle the same event than to group everything into a single handler. **But**, if you need to do any type of lookups/queries for a different Live Object within a certain handler, importing should be pretty easy:
-
-```typescript
-import OtherLiveObject from '../OtherLiveObject/spec.ts'
-```
-
-# Lookups
-
-## Loading the "current" record in full
-
-In some situations, it's necessary to find an existing Live Object record and load all of its data into the current class. Doing this requires 2 steps:
-
-1. Make sure all `uniqueBy` properties are set on the class
-2. Call `await this.load()`
-
-**Example:**<br>
-```typescript
-@OnEvent('nsp.Contract.Event')
-async onSomeEvent(event: Event) {
-    // Set unique properties.
-    this.someUniqueProperty = event.data.something
-
-    // Load the full record into `this`. 
-    const doesExist = await this.load()
-
-    // If the record exists, all @Properties of `this` Live Object 
-    // class will now hold values (are automatically set).
-}
-```
-
-> [!NOTE]
-> This shouldn't actually be necessary unless you need a property value that isn't present on the event itself. Most of the time you can just set property values using event data and let Spec auto-upsert the Live Object record for you.
 
 # Next Steps
 
