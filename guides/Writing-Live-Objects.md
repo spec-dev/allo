@@ -228,13 +228,13 @@ To understand which events can be handled, it's important to understand how cont
 
 There are 3 different formats that can be used when decorating an event handler, each resulting in a different level of event specificity:
 
-#### 1) Chain-agnostic format
+#### 1) Multi-chain format
 ```typescript
 @OnEvent('allo.ProjectRegistry.ProjectCreated')
 createProject(event: Event) {}
 ```
 
-This format of `namespace.ContractGroup.Event` makes it easy to handle a single event _across multiple chains_ with a single handler function. When using this format, the given event is handled across all chains listed in the Live Object's `manifest.json` file (inside the `chains` array — [example](../Project/manifest.json#L7)).
+This format of `namespace.ContractName.EventName` makes it easy to handle a single event _across multiple chains_ with a single handler function. When using this format, the given event is handled across all chains listed in the Live Object's `manifest.json` file (inside the `chains` array — [example](../Project/manifest.json#L7)).
 
 #### 2) Chain-specific format
 ```typescript
