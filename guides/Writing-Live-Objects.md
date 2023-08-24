@@ -8,7 +8,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [X vs. Y](#x-vs-y)
 * [Design Pattern](#design-pattern)
 * [Namespaces](#namespaces)
-* [Creating New Live Objects](#creating-live-objects)
+* [Creating Live Objects](#creating-live-objects)
 * [File Structure](#file-structure)
 * [Class Structure](#class-structure)
     * [Properties](#properties)
@@ -61,7 +61,7 @@ compoundv3
 
 Namespaces are used to contextually organize specific resources within the data ecosystem, including contract groups, events, and Live Objects. Ideally, all Live Objects for a particular namespace exist within a single GitHub repo for browsability.
 
-# Creating New Live Objects
+# Creating Live Objects
 
 The Spec CLI makes it easy to create new Live Objects.
 
