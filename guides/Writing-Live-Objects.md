@@ -15,6 +15,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
     * [Event Handlers](#event-handlers)
     * [Call Handlers](#call-handlers)
 * [Saving](#saving)
+* [Next Steps](#next-steps)
 
 # Requirements
 
