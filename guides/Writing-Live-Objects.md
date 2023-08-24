@@ -451,7 +451,7 @@ Now that both upsert requirements met, a `Project` instance will now be auto-sav
 
 By default, after an event handler has completed, the Live Object instance will automatically be saved. 
 
-However, if you ever need to manually save a Live Object instance in the middle of a function, and (optionally) turn off auto-saving, you can perform the following steps:
+However, if you ever need to manually save a Live Object instance in the middle of a function and don't want to auto-save, you can perform the following steps:
 
 1) Add `autoSave: false` as a decorator option
 2) Make sure your handler function is tagged as `async`
@@ -471,6 +471,8 @@ async createProject(event: Event) {
 ```
 
 One other option instead of setting `autoSave: false` is to simply `return false` from your handler function itself. These are essentially equivalent.
+
+Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
 
 # Docs coming...
 
