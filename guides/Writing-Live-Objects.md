@@ -414,7 +414,7 @@ Example:
 
 # Imports
 
-How to import other files, other Live Objects, or external dependencies.
+How to import other files, other Live Objects, and external dependencies.
 
 ## Local import syntax
 
@@ -439,7 +439,33 @@ handle the same event than to group everything into a single handler. **But**, i
 import AnotherLiveObject from '../AnotherLiveObject/spec.ts'
 ```
 
+## Importing external dependencies
+
+Every Live Object is ultimately hosted as an independent edge function using the Deno runtime. Therefore, importing and using external javascript dependencies is absolutely possible.
+
+Let's say we wanted to import and use version `1.2.3` of a fictional npm package called `mypackage`. To do this, we can leverage [esm.sh](https://esm.sh) as our host for this package (Deno leverages url-based imports), and follow the below 3 steps:
+
+1. Add an entry in the `imports` dictionary within [`imports.json`](../imports.json) like so:
+```javascript
+{
+    "imports": {
+        "mypackage": "https://esm.sh/mypackage@1.2.3"        
+    }
+}
+```
+2. Cache the dependeny locally:
+```bash
+$ deno cache https://esm.sh/mypackage@1.2.3
+```
+3. Import away!
+```typescript
+// From within your Live Object file...
+import { something } from 'mypackage'
+```
+
 # Class Instantiation
+
+
 
 # Lookups
 
