@@ -20,7 +20,7 @@ It's easy to test your Live Objects locally using live production data from the 
     $ psql
     ```
 
-## Under the hood
+## What happens under the hood
 
 The Live Object testing process is designed to simulate how Spec will index your Live Object into the Spec network when it's officially published. With that in mind, whenever you test a Live Object, the following steps will take place:
 
@@ -28,7 +28,7 @@ The Live Object testing process is designed to simulate how Spec will index your
 2. A Postgres schema for your Live Object's namespace will be created inside your `live-object-testing` database (e.g. `allo`).
 3. A Postgres table with the exact same structure and `snake_cased` name as your Live Object will be created within your namespace's schema (e.g. `allo.project_owner`).
 4. If testing your Live Object on a range of historical event data, your requested date range of events will be pulled from Spec's APIs and routed through your event handlers one by one, in chronological order. This will result in your Live Object actually indexing data into its test table.
-5. All of your Live Object's input events will be directly subcribed to over websockets. This way, any new events will be routed through their respective handlers, allowing you to test the indexing of new realtime event data.
+5. All of your Live Object's input events will be directly subcribed to over websockets. This way, any new events will be routed through their respective handlers, allowing you to test the indexing of new data in real time.
 
 After you're done testing a Live Object, feel free to `psql` into your Live Object testing database and check out exactly how data is being indexed. For example:
 ```
