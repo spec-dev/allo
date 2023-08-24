@@ -221,6 +221,10 @@ Not only that, some of Spec's custom property types provide contextual informati
 | `number`          | `integer`            |
 | `boolean`         | `boolean`            |
 
+#### BigInt
+
+`BigInt` is a type held near and dear to our hearts in web3. The main thing to know is that `BigInt` on Spec is the exact same as `BigNumber` on `ethers.js` ([Source](https://github.com/spec-dev/core-lib/blob/master/src/lib/helpers/index.ts#L6C1-L7C1)).
+
 ## Event Handlers
 
 Event handlers control exactly how a Live Object's data is indexed. These handlers are defined as methods on the Live Object class itself, and are created using the `@OnEvent()` decorator.
@@ -473,6 +477,7 @@ async createProject(event: Event) {
 One other option instead of setting `autoSave: false` is to simply `return false` from your handler function itself. These are essentially equivalent.
 
 Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
+
 
 # Docs coming...
 
