@@ -22,12 +22,13 @@ $ psql
 
 ## How testing works
 
-The Live Object testing process will:
+The Live Object testing process is designed to simulate how Spec will index your Live Object into the Spec network when it's officially published. With that in mind, any time you test a Live Object, the following steps will take place:
 
-1) Create a local Postgres table with the same structure as your Live Object (this is where test data will be indexed into).
-2) Subscribe to all inputs (events & contract calls) that your Live Object depends on.
-3) Route any new inputs (events & contract calls) into their respective handler functions within your Live Object.
-4) If testing on historical data, the requested historical range of event/call data will be pulled from Spec's APIs and routed through your handlers one by one.
+1. A local Postgres database named `live-object-testing` will be created (if not already).
+2. A Postgres schema for your Live Object's namespace will be created inside your `live-object-testing` database (e.g. `allo`).
+3. A Postgres table with the exact same structure and (snake_cased) name as your Live Object will be created within your namespace's Postgres schema (e.g. `allo.project`).
+4. If testing your Live Object on historical inputs (event & contract call data), the requested range of data will be pulled from Spec's APIs and routed through your handlers one by one, in chronological order. This will cause your Live Object to actually index data into its test table created in step 3.
+5. Each of the inputs (events & contract calls) that your Live Object depends on are subcribed to (in Spec's event network), and all new inputs are routed through your handlers when they occur.
 
 ## Testing on new events
 
