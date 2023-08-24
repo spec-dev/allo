@@ -26,16 +26,28 @@ The Live Object testing process is designed to simulate how Spec will index your
 
 1. A local Postgres database named `live-object-testing` will be created (if not already).
 2. A Postgres schema for your Live Object's namespace will be created inside your `live-object-testing` database (e.g. `allo`).
-3. A Postgres table with the exact same structure and `snake_cased` name as your Live Object will be created within your namespace's schema (e.g. `allo.project`).
+3. A Postgres table with the exact same structure and `snake_cased` name as your Live Object will be created within your namespace's schema (e.g. `allo.project_owner`).
 4. If testing your Live Object on historical events, the requested range of data will be pulled from Spec's APIs and routed through your handlers one by one, in chronological order. This will cause your Live Object to actually index data into its test table created in step 3.
 5. Each of the events your Live Object depends on are directly subcribed to in Spec's event network, routing all new events through your Live Object handlers to index data in realtime.
+
+After you're done testing a Live Object, feel free to `psql` into your Live Object testing database and check out exactly how data is being indexed. For example:
+```bash
+$ psql live-object-testing
+psql (14.6 (Homebrew))
+Type "help" for help.
+
+live-object-testing=# select * from allo.project_owner;
+ id | project_id | account_address | is_active | block_hash | block_number | block_timestamp | chain_id 
+----+------------+-----------------+-----------+------------+--------------+-----------------+----------
+...
+```
 
 ## Testing on new events
 
 To test a single Live Object:
 
 ```bash
-$ spec test object Project
+$ spec test object ProjectOwner
 ```
 
 To test multiple at the same time:
