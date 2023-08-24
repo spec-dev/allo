@@ -86,3 +86,7 @@ To test a Live Object on its entire history of input data.
 ```bash
 $ spec test object ProjectOwner --all-time
 ```
+
+## Next Steps
+
+Once your Live Object is written and tested, it can then be published to the Spec network for indexing. We're still putting the final pieces in place to fully automate this step with a `spec publish` command, so for now, just reach out to us directly when you're ready to publish.
