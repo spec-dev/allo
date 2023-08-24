@@ -28,7 +28,7 @@ The Live Object testing process is designed to simulate how Spec will index your
 2. A Postgres schema for your Live Object's namespace will be created inside your `live-object-testing` database (e.g. `allo`).
 3. A Postgres table with the exact same structure and `snake_cased` name as your Live Object will be created within your namespace's schema (e.g. `allo.project`).
 4. If testing your Live Object on historical events, the requested range of data will be pulled from Spec's APIs and routed through your handlers one by one, in chronological order. This will cause your Live Object to actually index data into its test table created in step 3.
-5. Each of the events that your Live Object depends on are subcribed to in the Spec event network, routing all new events through your Live Object's handlers.
+5. Each of the events your Live Object depends on are directly subcribed to in Spec's event network, routing all new events through your Live Object handlers to index data in realtime.
 
 ## Testing on new events
 
