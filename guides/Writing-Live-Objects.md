@@ -16,6 +16,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
     * [Call Handlers](#call-handlers)
 * [Saving](#saving)
     * [Manual vs. Automated Saving](#manual-vs-automated-saving)
+* [Loading](#loading)
 * [Next Steps](#next-steps)
 
 # Requirements
@@ -461,7 +462,7 @@ However, if you ever need to manually save a Live Object instance in the middle 
 2) Make sure your handler function is tagged as `async`
 3) Manually call `await this.save()` whenever/wherever you need
 
-```
+```typescript
 @OnEvent('allo.ProjectRegistry.ProjectCreated', { autoSave: false })
 async createProject(event: Event) {
     this.projectId = BigInt.from(event.data.projectID)
@@ -470,13 +471,18 @@ async createProject(event: Event) {
     // Manually save
     await this.save()
 
-    // .. do something else
+    // ...do something else super cool...
 }
 ```
 
 One other option instead of setting `autoSave: false` is to simply `return false` from your handler function itself. These are essentially equivalent.
 
 Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
+
+# Loading
+
+
+# 
 
 
 # Docs coming...
