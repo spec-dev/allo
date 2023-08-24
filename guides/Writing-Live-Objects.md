@@ -419,7 +419,7 @@ The developer must...
 2. Assign values to each of ^these unique properties before saving (or auto-saving).
 
 The entire purpose of `uniqueBy` within the `@Spec()` class decorator is to satisfy requirement #1 above. 
-Looking back at the Allo Project example...
+Looking back at the [Allo Project](#alloprojectspects) example...
 
 ```typescript
 @Spec({
@@ -444,7 +444,15 @@ updateMetadata(event: Event) {
 }
 ```
 
-With both upsert requirements met, a `Project` instance will now be auto-saved after each of the above event handlers.
+Now that both upsert requirements met, a `Project` instance will now be auto-saved after each of the above event handlers.
+
+## Disabling auto-saving
+
+...
+
+## Manually saving
+
+..
 
 # Docs coming...
 
