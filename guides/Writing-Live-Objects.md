@@ -17,6 +17,10 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [Saving](#saving)
     * [Manual vs. Automated Saving](#manual-vs-automated-saving)
 * [Loading](#loading)
+* [Referencing Other Live Objects](#referencing-other-classes)
+    * [Importing](#importing-other-live-objects)
+    * [Instantiating New Instances]()
+    * 
 * [Next Steps](#next-steps)
 
 # Requirements
@@ -462,6 +466,7 @@ However, if you ever need to manually save a Live Object instance in the middle 
 2) Make sure your handler function is tagged as `async`
 3) Manually call `await this.save()` whenever/wherever you need
 
+**Example:**<br>
 ```typescript
 @OnEvent('allo.ProjectRegistry.ProjectCreated', { autoSave: false })
 async createProject(event: Event) {
@@ -481,9 +486,28 @@ Just know that as long as your `uniqueBy` properties are set, you can call `awai
 
 # Loading
 
+In some situations, it's necessary to find an existing Live Object record and load all of its data into the current class. Doing this requires 2 steps:
 
-# 
+1. Make sure all `uniqueBy` properties are set on the class
+2. Call `await this.load()`
 
+**Example:**<br>
+```typescript
+@OnEvent('nsp.Contract.Event')
+async onSomeEvent(event: Event) {
+    // Set unique properties.
+    this.someUniqueProperty = event.data.something
+
+    // Load the full record into `this`. 
+    const doesExist = await this.load()
+}
+```
+
+# Referencing Other Classes
+
+## Importing Other Live Objects
+
+## 
 
 # Docs coming...
 
