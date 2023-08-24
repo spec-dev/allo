@@ -265,6 +265,7 @@ If a contract group ever contains multiple events with the same name, the event 
 ### Event Structure
 
 Contract event interface:
+
 ```typescript
 interface Event {
     id: string                    // event id unique to spec
@@ -287,6 +288,7 @@ interface EventOrigin {
 ```
 
 Example:
+
 ```javascript
 {
     id: '3dee9f84b83657da2a0b36a9fc69c7f526dba2e0f3a4bb4264f7c9c88a065ae8',
@@ -338,7 +340,10 @@ createSplit(call: Call) {
 
 ### Call Structure
 
-Contract event interface:
+The call data structure contains data from both input(s) and output(s) of a contract function call. Values for `inputArgs` and `outputArgs` are guaranteed to exist (if the function actually has input/output data), while the `inputs` and `outputs` call properties will only hold values if the function has *named* arguments.
+
+Contract call interface:
+
 ```typescript
 interface Call {
     id: string                      // call id unique to spec
@@ -362,6 +367,7 @@ interface CallOrigin {
 ```
 
 Example:
+
 ```javascript
 {
     origin: {
