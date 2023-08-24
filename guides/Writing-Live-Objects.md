@@ -14,13 +14,9 @@ Before diving head-first into writing Live Objects, we highly recommend checking
     * [Properties](#properties)
     * [Event Handlers](#event-handlers)
     * [Call Handlers](#call-handlers)
-* [Saving Live Objects](#saving-live-objects)
-    * [Manual vs. Automated Saving](#manual-vs-automated-saving)
-* [Loading the Current Record](#loading-current-record)
-* [Referencing Other Live Objects](#referencing-other-classes)
-    * [Importing](#importing-other-live-objects)
-    * [Instantiating New Instances]()
-    * 
+* [Saving](#saving)
+* [Importing](#importing)
+* [Lookups](#lookups)
 * [Next Steps](#next-steps)
 
 # Requirements
@@ -418,7 +414,7 @@ Example:
 }
 ```
 
-# Saving Live Objects
+# Saving
 
 Within a Live Object class, all save operations translate to Postgres **upserts**. For those not familiar, "upsert" is another word for "insert-or-update", which functionality-wise translates to "Create this record if it doesn't exist yet....otherwise, just update it". Upserting is incredibly efficient, as it removes the need to query a table solely to see if a record exists before choosing between insert or update. 
 
@@ -484,7 +480,13 @@ One other option instead of setting `autoSave: false` is to simply `return false
 
 Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
 
-# Loading the Current Record
+# Importing
+
+...
+
+# Lookups
+
+## Loading the current Live Object record in full
 
 In some situations, it's necessary to find an existing Live Object record and load all of its data into the current class. Doing this requires 2 steps:
 
@@ -506,21 +508,8 @@ async onSomeEvent(event: Event) {
 }
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > This shouldn't actually be necessary unless you need a property value that isn't present on the event itself. Most of the time you can just set property values using event data and let Spec auto-upsert the Live Object record for you.
-
-# Referencing Other Classes
-
-## Importing Other Live Objects
-
-## 
-
-# Docs coming...
-
-- imports / referencing other live object classes
-- lookups, manual saves, transactions
-- contract calls
-- metadata resolution
 
 # Next Steps
 
