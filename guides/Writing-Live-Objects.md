@@ -483,7 +483,7 @@ Just know that as long as your `uniqueBy` properties are set, you can call `awai
 
 # Lookups
 
-## Loading the current Live Object record in full
+## Loading the "current" record in full
 
 In some situations, it's necessary to find an existing Live Object record and load all of its data into the current class. Doing this requires 2 steps:
 
