@@ -446,13 +446,30 @@ updateMetadata(event: Event) {
 
 Now that both upsert requirements met, a `Project` instance will now be auto-saved after each of the above event handlers.
 
-## Disabling auto-saving
+## Manual vs. automated saving
 
-...
+By default, after an event handler has completed, the Live Object instance will automatically be saved. 
 
-## Manually saving
+However, if you ever need to manually save a Live Object instance in the middle of a function, and (optionally) turn off auto-saving, you can perform the following steps:
 
-..
+1) Add `autoSave: false` as a decorator option
+2) Make sure your handler function is tagged as `async`
+3) Manually call `await this.save()` whenever/wherever you need
+
+```
+@OnEvent('allo.ProjectRegistry.ProjectCreated', { autoSave: false })
+async createProject(event: Event) {
+    this.projectId = BigInt.from(event.data.projectID)
+    this.createdAt = this.blockTimestamp
+    
+    // Manually save
+    await this.save()
+
+    // .. do something else
+}
+```
+
+One other option instead of setting `autoSave: false` is to simply `return false` from your handler function itself. These are essentially equivalent.
 
 # Docs coming...
 
