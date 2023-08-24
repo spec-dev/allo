@@ -10,15 +10,24 @@ It's easy to test your Live Objects locally using live production data from the 
 
 ## Prerequisites
 
-#### 1) Go ahead and cache whatever version of the Spec core library is being used with the Live Objects you are looking to test. This exact version/url can be found inside of `imports.json` in the root folder:
+1) Go ahead and cache whatever version of the Spec core library is being used with the Live Objects you are looking to test. This exact version/url can be found inside of `imports.json` in the root folder:
 ```bash
 $ deno cache https://esm.sh/@spec.dev/core@0.0.106
 ```
 
-#### 2) Make sure Postgres is up and running locally:
+2) Make sure Postgres is up and running locally:
 ```bash
 $ psql
 ```
+
+## How testing works
+
+The Live Object testing process will:
+
+1) Create a local Postgres table with the same structure as your Live Object (this is where test data will be indexed into).
+2) Subscribe to all inputs (events & contract calls) that your Live Object depends on.
+3) Route any new inputs (events & contract calls) into their respective handler functions within your Live Object.
+4) If testing on historical data, the requested historical range of event/call data will be pulled from Spec's APIs and routed through your handlers one by one.
 
 ## Testing on new events
 
@@ -40,14 +49,12 @@ To test all Live Objects in this folder simultaneously:
 $ spec test objects .
 ```
 
-The Live Object testing process will:<br>
-1) Create a Postgres table for each Live Object in your local database.
-2) Subscribe to all inputs (events & contract calls) that your Live Objects depend on.
-3) Route new inputs (events & contract calls) into their respective Live Object handler functions.
-
 ## Testing on historical event data
 
 Being able to test Live Objects on a range of historical input data is great, especially if those events or contract calls don't occur on-chain very often.
+
+**DO BE AWARE**<br>
+If you are testing a Live Object that resolves metadata from IPFS (using our `resolveMetadata` function), the testing process will take much longer (not surprisingly), so it's recommended to test these objects on a shorter range of data.
 
 Test a Live Object on the previous 30 days of input events/calls:
 
@@ -55,7 +62,7 @@ Test a Live Object on the previous 30 days of input events/calls:
 $ spec test object ProjectOwner --recent
 ```
 
-Test a Live Object from a specific day forward:
+Test a Live Object from a specific day onwards:
 
 ```bash
 $ spec test object ProjectOwner --from 5.1.2023
