@@ -20,9 +20,9 @@ $ deno cache https://esm.sh/@spec.dev/core@0.0.106
 $ psql
 ```
 
-## How testing works
+## Under the hood
 
-The Live Object testing process is designed to simulate how Spec will index your Live Object into the Spec network when it's officially published. With that in mind, any time you test a Live Object, the following steps will take place:
+The Live Object testing process is designed to simulate how Spec will index your Live Object into the Spec network when it's officially published. With that in mind, whenever you test a Live Object, the following steps will take place:
 
 1. A local Postgres database named `live-object-testing` will be created (if not already).
 2. A Postgres schema for your Live Object's namespace will be created inside your `live-object-testing` database (e.g. `allo`).
