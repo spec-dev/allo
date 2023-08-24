@@ -20,7 +20,7 @@ $ deno cache https://esm.sh/@spec.dev/core@0.0.106
 $ psql
 ```
 
-## Testing on new event data
+## Testing on new events
 
 To test a single Live Object:
 
