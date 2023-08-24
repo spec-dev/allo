@@ -292,7 +292,7 @@ Example:
     id: '3dee9f84b83657da2a0b36a9fc69c7f526dba2e0f3a4bb4264f7c9c88a065ae8',
     name: 'eth.contracts.allo.ProjectRegistry.ProjectCreated@0x63c92f9505d420bff631cb9df33be952bdc11e2118da36a850b43e6bcc4ce4de',
     origin: {
-        chainId: '',
+        chainId: '1',
         blockNumber: 17597721,
         blockHash: '0xec460c5b3f69cb3ca67f1374a160b541fb4362f725e6eece0805cac098c5869d',
         blockTimestamp: '2023-07-01T07:27:23.000Z',
@@ -329,10 +329,75 @@ Example (with 0xSplits protocol):
 ```typescript
 @OnCall('0xsplits.SplitMain.createSplit')
 createSplit(call: Call) {
-    this.address = call.output.split
+    this.address = call.outputs.split
     this.distributorFee = BigInt.from(call.inputs.distributorFee)
     this.controller = call.inputs.controller
     this.createdAt = call.origin.blockTimestamp
+}
+```
+
+### Call Structure
+
+Contract event interface:
+```typescript
+interface Call {
+    id: string                      // call id unique to spec
+    name: string                    // full call name with version (signature)
+    origin: CallOrigin              // blockchain call origin data
+    inputs: { [key: string]: any }  // function input arguments in name:value dictionary format
+    inputArgs: any[]                // function input values as an array
+    outputs: { [key: string]: any } // function output arguments in name:value dictionary format
+    outputArgs: any[]               // function output values as an array
+}
+
+interface CallOrigin {
+    chainId: string
+    blockNumber: number
+    blockHash: string
+    blockTimestamp: string
+    contractAddress: string
+    transactionHash: string
+    signature: string
+}
+```
+
+Example:
+```javascript
+{
+    origin: {
+        chainId: '1',
+        blockNumber: 17963308,
+        blockHash: '0xc79487df6d7225efab4f3922896cc9ea9dae243211b26cdc15f591aa3691dfb3',
+        blockTimestamp: '2023-08-21T13:09:23.000Z',
+        contractAddress: '0x2ed6c4b5da6378c7897ac67ba9e43102feb694ee',
+        transactionHash: '0x7710e5d2315583ef5d3ca7f289f18c0c7334d077c6cf98c233bd7e9ee4e1a24e',
+        signature: '0x7601f782'
+    },
+    name: 'eth.contracts.0xsplits.SplitMain.createSplit@0x7601f782',
+    inputs: {
+        accounts: [
+            '0x84580fe78483cda230754e798d0b120ea6fa661c',
+            '0xea37f3118a932248e11507e5dffa9d915702c208',
+            '0xec8bfc8637247cee680444ba1e25fa5e151ba34'
+        ],
+        percentAllocations: [ 742500, 247500, 10000 ],
+        distributorFee: 31983,
+        controller: '0x84580fe78483cda230754e798d0b120ea6fa661c'
+    },
+    inputArgs: [
+        [
+            '0x84580fe78483cda230754e798d0b120ea6fa661c',
+            '0xea37f3118a932248e11507e5dffa9d915702c208',
+            '0xec8bfc8637247cee680444ba1e25fa5e151ba342'
+        ],
+        [ 742500, 247500, 10000 ],
+        31983,
+        '0x84580fe78483cda230754e798d0b120ea6fa661c'
+    ],
+    outputs: { 
+        split: '0xbf05d6b3b6a215c59cb7b92f1ddb6cf2c65bf9b4' 
+    },
+    outputArgs: [ '0xbf05d6b3b6a215c59cb7b92f1ddb6cf2c65bf9b4' ]
 }
 ```
 
