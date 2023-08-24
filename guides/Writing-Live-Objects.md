@@ -13,6 +13,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [Class Structure](#class-structure)
     * [Properties](#properties)
     * [Event Handlers](#event-handlers)
+    * [Call Handlers](#call-handlers)
 * [Saving](#saving)
 
 # Requirements
@@ -313,6 +314,27 @@ Example:
 When a contract event is indexed, Spec first creates a new instance of your Live Object class. It then calls an abstract class method that carries out the following steps:
 
 ![](https://dbjzhg7yxqn0y.cloudfront.net/ehf3.png)
+
+## Call Handlers
+
+Sometimes a contract event doesn't contain all of the data you need to properly index a Live Object. In some cases, data that's missing from an event actually exists, instead, inside the inputs or outputs of a contract function call. Luckily, Spec has call handlers as well, exactly for this purpose.
+
+The only difference between a call handler and an event handler is the decorator you need to use and the type/structure of your handler's input:
+
+* `@OnEvent` -> `@OnCall`
+* `Event` -> `Call`
+
+Example (with 0xSplits protocol):
+
+```typescript
+@OnCall('0xsplits.SplitMain.createSplit')
+createSplit(call: Call) {
+    this.address = call.output.split
+    this.distributorFee = BigInt.from(call.inputs.distributorFee)
+    this.controller = call.inputs.controller
+    this.createdAt = call.origin.blockTimestamp
+}
+```
 
 # Saving
 
