@@ -15,6 +15,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
     * [Event Handlers](#event-handlers)
     * [Call Handlers](#call-handlers)
 * [Saving](#saving)
+    * [Manual vs. Automated Saving](#manual-vs-automated-saving)
 * [Next Steps](#next-steps)
 
 # Requirements
@@ -446,7 +447,7 @@ updateMetadata(event: Event) {
 
 Now that both upsert requirements met, a `Project` instance will now be auto-saved after each of the above event handlers.
 
-## Manual vs. automated saving
+## Manual vs. Automated Saving
 
 By default, after an event handler has completed, the Live Object instance will automatically be saved. 
 
