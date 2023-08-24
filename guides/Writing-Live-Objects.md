@@ -16,7 +16,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
     * [Call Handlers](#call-handlers)
 * [Saving Live Objects](#saving-live-objects)
     * [Manual vs. Automated Saving](#manual-vs-automated-saving)
-* [Loading Current Record](#loading-current-record)
+* [Loading the Current Record](#loading-current-record)
 * [Referencing Other Live Objects](#referencing-other-classes)
     * [Importing](#importing-other-live-objects)
     * [Instantiating New Instances]()
@@ -484,7 +484,7 @@ One other option instead of setting `autoSave: false` is to simply `return false
 
 Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
 
-# Loading Current Record
+# Loading the Current Record
 
 In some situations, it's necessary to find an existing Live Object record and load all of its data into the current class. Doing this requires 2 steps:
 
@@ -501,10 +501,13 @@ async onSomeEvent(event: Event) {
     // Load the full record into `this`. 
     const doesExist = await this.load()
 
-    // If the record exists, all @Properties of `this` 
-    // Live Object class should now have values (are automatically set).
+    // If the record exists, all @Properties of `this` Live Object 
+    // class will now hold values (are automatically set).
 }
 ```
+
+> [!NOTE]  
+> This shouldn't actually be necessary unless you need a property value that isn't present on the event itself.
 
 # Referencing Other Classes
 
