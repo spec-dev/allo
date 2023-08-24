@@ -14,9 +14,9 @@ Before diving head-first into writing Live Objects, we highly recommend checking
     * [Properties](#properties)
     * [Event Handlers](#event-handlers)
     * [Call Handlers](#call-handlers)
-* [Saving](#saving)
+* [Saving Live Objects](#saving-live-objects)
     * [Manual vs. Automated Saving](#manual-vs-automated-saving)
-* [Loading](#loading)
+* [Loading Current Record](#loading-current-record)
 * [Referencing Other Live Objects](#referencing-other-classes)
     * [Importing](#importing-other-live-objects)
     * [Instantiating New Instances]()
@@ -418,7 +418,7 @@ Example:
 }
 ```
 
-# Saving
+# Saving Live Objects
 
 Within a Live Object class, all save operations translate to Postgres **upserts**. For those not familiar, "upsert" is another word for "insert-or-update", which functionality-wise translates to "Create this record if it doesn't exist yet....otherwise, just update it". Upserting is incredibly efficient, as it removes the need to query a table solely to see if a record exists before choosing between insert or update. 
 
@@ -484,7 +484,7 @@ One other option instead of setting `autoSave: false` is to simply `return false
 
 Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
 
-# Loading
+# Loading Current Record
 
 In some situations, it's necessary to find an existing Live Object record and load all of its data into the current class. Doing this requires 2 steps:
 
@@ -500,6 +500,9 @@ async onSomeEvent(event: Event) {
 
     // Load the full record into `this`. 
     const doesExist = await this.load()
+
+    // If the record exists, all @Properties of `this` 
+    // Live Object class should now have values (are automatically set).
 }
 ```
 
