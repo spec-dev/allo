@@ -453,7 +453,7 @@ Let's say we wanted to import and use version `1.2.3` of a fictional npm package
     }
 }
 ```
-2. Cache the dependeny locally:
+2. Cache the dependency locally:
 ```bash
 $ deno cache https://esm.sh/mypackage@1.2.3
 ```
@@ -463,11 +463,15 @@ $ deno cache https://esm.sh/mypackage@1.2.3
 import { something } from 'mypackage'
 ```
 
+It's worth noting that not _every_ npm package tends to play well with the Deno runtime, so definitely always remember to test your Live Objects.
+
 # Class Instantiation
 
-
+...
 
 # Lookups
+
+Learn how to load/query for existing Live Object records.
 
 ## Loading the "current" record in full
 
