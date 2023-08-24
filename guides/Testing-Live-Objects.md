@@ -8,7 +8,7 @@ It's easy to test your Live Objects locally using live production data from the 
 * [Deno](https://deno.com/manual@v1.33.1/getting_started/installation) >= 1.3 (we also highly recommend the Deno/Denoland VSCode extension)
 * [Postgres](https://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/) >= 14
 
-## Preflight steps
+## Prerequisites
 
 1. Go ahead and cache whatever version of the Spec core library is being used with the Live Objects you are looking to test. This exact version/url can be found inside of `imports.json` in the root folder:
     ```bash
