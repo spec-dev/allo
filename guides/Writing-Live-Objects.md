@@ -115,7 +115,7 @@ Within a Live Object class, logic is organized into 2 main sections, with each s
 
 To get a better feel for how these classes are written, let's take a look at a Live Object that indexes all Projects on Allo.
 
-**`allo/Project/spec.ts`**
+#### `allo/Project/spec.ts`
 ```typescript
 import { LiveObject, Spec, Property, Event, OnEvent, BigInt, Json, Timestamp } from '@spec.dev/core'
 
