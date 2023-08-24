@@ -480,6 +480,9 @@ In some situations, it's necessary to find an existing Live Object record and lo
 1. Make sure all `uniqueBy` properties are set on the class
 2. Call `await this.load()`
 
+> [!NOTE]
+> This shouldn't actually be necessary unless you need a property value that isn't present on the event itself. Most of the time you can just set property values using event data and let Spec auto-upsert the Live Object record for you.
+
 **Example:**<br>
 ```typescript
 @OnEvent('nsp.Contract.Event')
@@ -494,9 +497,6 @@ async onSomeEvent(event: Event) {
     // class will now hold values (are automatically set).
 }
 ```
-
-> [!NOTE]
-> This shouldn't actually be necessary unless you need a property value that isn't present on the event itself. Most of the time you can just set property values using event data and let Spec auto-upsert the Live Object record for you.
 
 # Saving
 
