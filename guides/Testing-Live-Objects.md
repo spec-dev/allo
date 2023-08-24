@@ -65,10 +65,10 @@ $ spec test objects .
 ## Testing on historical event data
 
 Being able to test Live Objects on a range of historical input data is great, especially if those events or contract calls don't occur on-chain very often.
-<br>
+
 > [!IMPORTANT]  
 > If you are testing a Live Object that resolves metadata from IPFS (using our `resolveMetadata` function), the testing process will take much longer (not surprisingly), so it's recommended to test these Live Objects on a shorter range of data than others.
-<br>
+
 To test a Live Object on the previous 30 days of input events/calls:
 
 ```bash
