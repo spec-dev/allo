@@ -507,7 +507,7 @@ async onSomeEvent(event: Event) {
 ```
 
 > [!NOTE]  
-> This shouldn't actually be necessary unless you need a property value that isn't present on the event itself.
+> This shouldn't actually be necessary unless you need a property value that isn't present on the event itself. Most of the time you can just set property values using event data and let Spec auto-upsert the Live Object record for you.
 
 # Referencing Other Classes
 
