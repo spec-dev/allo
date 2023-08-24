@@ -12,7 +12,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [File Structure](#file-structure)
 * [Class Structure](#class-structure)
 * [Saving](#saving)
-* [Importing](#importing)
+* [Imports](#imports)
 * [Lookups](#lookups)
 * [Next Steps](#next-steps)
 
@@ -477,9 +477,32 @@ One other option instead of setting `autoSave: false` is to simply `return false
 
 Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
 
-# Importing
+# Imports
 
-...
+How to import other files, other Live Objects, or external dependencies.
+
+## Local import syntax
+
+Because Live Objects run using the Deno runtime, the syntax for importing other files is slightly different. With Deno, you need to actually add the `.ts` extension on any imports you write.
+
+**Example — Node.js vs. Deno**
+```typescript
+// Node.js
+import { something } from './somewhere'
+
+// Deno
+import { something } from './somewhere.ts'
+```
+
+## Importing other Live Objects
+
+> [!NOTE]
+> Definitely read through the [Design Pattern](#design-pattern) section of this doc if you haven't already. Remember that Live Objects should _ideally_ be as independent as possible, with only loose relationships. It's better to have multiple Live Objects 
+handle the same event than to group everything into a single handler. **But**, if you need to do any type of lookups/queries for a different Live Object within a certain handler, importing should be pretty easy:
+
+```typescript
+import OtherLiveObject from '../OtherLiveObject/spec.ts'
+```
 
 # Lookups
 
