@@ -31,7 +31,7 @@ The Live Object testing process is designed to simulate how Spec will index your
 5. Each of the events your Live Object depends on are directly subcribed to in Spec's event network, routing all new events through your Live Object handlers to index data in realtime.
 
 After you're done testing a Live Object, feel free to `psql` into your Live Object testing database and check out exactly how data is being indexed. For example:
-```bash
+```
 $ psql live-object-testing
 psql (14.6 (Homebrew))
 Type "help" for help.
