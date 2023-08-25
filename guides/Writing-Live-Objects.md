@@ -575,16 +575,43 @@ Finding existing Live Object records can be done with 2 different class methods 
 
 #### Signatures
 ```typescript
-/**
- * where: properties to filter by
- * options: {
- *      orderBy?: OrderBy ('asc' | 'desc')
- *      offset?: number
- *      limit?: number
- *  }
- **/
-this.find(LiveObjectClassType, where, options?)    // returns an array of Live Object class instances
-this.findOne(LiveObjectClassType, where, options?) // returns the matching Live Object class instance (or null)
+// Returns an array of Live Object class instances.
+await this.find(LiveObjectClassType, matchingProperties, options?) 
+
+ // Returns the matching Live Object class instance (or null).
+await this.findOne(LiveObjectClassType, matchingProperties, options?)
+
+// Options are...
+type Options = {
+    orderBy?: OrderBy
+    offset?: number
+    limit?: number
+}
+type OrderBy = {
+    column: string | string[]
+    direction: OrderByDirection
+}
+enum OrderByDirection {
+    ASC = "asc",
+    DESC = "desc"
+}
+```
+
+#### Example
+
+```typescript
+@OnEvent('namespace.Contract.Event')
+async onSomeEvent(event: Event) {
+    // Find many.
+    const matchingInstances = await this.find(SomeLiveObject, {
+        property: 'value'
+    })
+    // Find one.
+    const someSpecificInstance = await this.findOne(SomeLiveObject, {
+        uniqueProperty1: '...',
+        uniqueProperty2: '...',
+    })
+}
 ```
 
 # Saving
