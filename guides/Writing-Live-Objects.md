@@ -15,6 +15,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [Class Instantiation](#class-instantiation)
 * [Lookups](#lookups)
 * [Saving](#saving)
+* [Calling Contract Methods](#calling-contract-methods)
 * [Resolving Metadata](#resolving-metadata)
 * [Other Helpful Methods](#other-helpful-methods)
 * [Next Steps](#next-steps)
@@ -736,6 +737,29 @@ async onSomeEvent(event: Event) {
 
     // Save both at the same time in a single transaction.
     await saveAll(sender, recipient)
+}
+```
+
+# Calling Contract Methods
+
+Requesting more information from a particular contract is often necessary when indexing data off-chain. Spec makes this possible in a variety of different ways.
+
+### Calling methods on the "current" contract
+
+In the instance where you need to call a method on *the same contract* that emitted the event you are handling, you can simply use `this.contract`:
+
+```typescript
+@OnEvent('namespace.Contract.Event')
+async onSomeEvent(event: Event) {
+    const { outputs, outputArgs } = await this.contract.someMethod()
+}
+```
+
+The return type of a contract method call is as follows:
+```typescript
+interface ContractCallResponse {
+    outputs: { [key: string]: any }  // outputs as a { <name>: <value> } map (if output args have names)
+    outputArgs: any[]                // output values as an array
 }
 ```
 
