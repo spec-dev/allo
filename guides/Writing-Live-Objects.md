@@ -747,13 +747,13 @@ Off-chain metadata can easily be resolved with Spec's `resolveMetadata` helper f
 
 ```typescript
 function resolveMetadata(pointer: string, options?: {
-    protocolId?: string | number
-    required?: boolean
-    fallback?: any
+    protocolId?: string | number  // default = 1
+    required?: boolean            // default = false
+    fallback?: any                // default = {}
 }): Promise<StringKeyMap | null>
 ```
 
-Currently the only `protocolId` supported (which is the default) is `1`, for IPFS.
+Currently the only `protocolId` supported is `1`, for IPFS, which is also the default.
 
 #### Example:
 
@@ -773,6 +773,11 @@ async updateMetadata(event: Event) {
     this.website = this.metadata.website
     this.twitter = this.metadata.projectTwitter
 }
+```
+
+If you know you have an IPFS cid, you can just do:
+```typescript
+const metadata = await resolveMetadata(cid)
 ```
 
 # Other Helpful Methods
