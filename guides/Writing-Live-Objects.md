@@ -15,6 +15,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [Class Instantiation](#class-instantiation)
 * [Lookups](#lookups)
 * [Saving](#saving)
+* [Resovling Metadata](#resolving-metadata)
 * [Other Helpful Methods](#other-helpful-methods)
 * [Next Steps](#next-steps)
 
@@ -735,6 +736,42 @@ async onSomeEvent(event: Event) {
 
     // Save both at the same time in a single transaction.
     await saveAll(sender, recipient)
+}
+```
+
+# Resolving Metadata
+
+Off-chain metadata can easily be resolved with Spec's `resolveMetadata` helper function.
+
+#### Signature:
+
+```typescript
+function resolveMetadata(pointer: string, options?: {
+    protocolId?: string | number
+    required?: boolean
+    fallback?: any
+}): Promise<StringKeyMap | null>
+```
+
+Currently the only `protocolId` supported (which is the default) is `1`, for IPFS.
+
+#### Example:
+
+```typescript
+@OnEvent('allo.ProjectRegistry.MetadataUpdated')
+async updateMetadata(event: Event) {
+    this.projectId = BigInt.from(event.data.projectID)
+
+    // Resolve metadata.
+    this.metaPtr = event.data.metaPtr || []
+    const [protocolId, pointer] = event.data.metaPtr || []
+    this.metadata = await resolveMetadata(pointer, { protocolId })
+
+    // Bring primary meta properties to top-level.
+    this.title = this.metadata.title
+    this.description = this.metadata.description
+    this.website = this.metadata.website
+    this.twitter = this.metadata.projectTwitter
 }
 ```
 
