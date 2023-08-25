@@ -470,7 +470,7 @@ It's worth noting that not _every_ npm package tends to play well with the Deno 
 Sometimes it's necessary to create multiple Live Object records from a single event. In order to do this, you need to be able to  instantiate a new class instance for the desired Live Object. This can be done in the following manner with `this.new`:
 
 > [!IMPORTANT]
-> `this.new(...)` should ALWAYS be used to create new Live Object class instances. The `new SomeLiveObject()` syntax won't work.
+> `this.new(...)` should **always** be used to create new Live Object class instances. The `new SomeLiveObject()` syntax won't work for a variety of reasons.
 
 #### Signature
 ```typescript
@@ -480,6 +480,9 @@ this.new(LiveObjectClassType, initialPropertyData)
 #### Example
 
 ```typescript
+/**
+ * A participant of some transfer.
+ **/
 @Spec({
     uniqueBy: ['contractAddress', 'accountAddress', 'chainId']
 })
@@ -495,13 +498,13 @@ class Participant extends LiveObject {
 
     @OnEvent('namespace.Contract.Transfer')
     async onSomeEvent(event: Event) {
-        // Create new Live Object instance for the transfer sender.
+        // Sending participant.
         const sender = this.new(Participant, {
             contractAddress: event.origin.contractAddress,
             accountAddress: event.data.from,
         })
 
-        // Create new Live Object instance for the transfer recipient.
+        // Receiving participant.
         const recipient = this.new(Participant, {
             contractAddress: event.origin.contractAddress,
             accountAddress: event.data.to,
@@ -517,7 +520,7 @@ When `this.new(...)` is called, a few things happen:
 
 1) A new class instance of the given Live Object type is created.
 2) The given property values are set on the new class instance.
-3) The new class instance has all 4 of its [base Live Object properties](#base-properties) (`chainId`, `blockNumber`, `blockTimestamp`, `blockHash`) set automatically, taking on the same values as those from the calling class (`this`).
+3) The new class instance has all 4 of its [base Live Object properties](#base-properties) (`chainId`, `blockNumber`, `blockTimestamp`, `blockHash`) automatically set, taking on the same values as those from the calling class (`this`). This is why, in the above example, you don't see `chainId` explicitly passed in with the rest of the initial properties — it simply doesn't need to be.
 
 # Lookups
 
