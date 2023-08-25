@@ -15,7 +15,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [Class Instantiation](#class-instantiation)
 * [Lookups](#lookups)
 * [Saving](#saving)
-* [Resovling Metadata](#resolving-metadata)
+* [Resolving Metadata](#resolving-metadata)
 * [Other Helpful Methods](#other-helpful-methods)
 * [Next Steps](#next-steps)
 
