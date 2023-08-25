@@ -15,6 +15,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [Class Instantiation](#class-instantiation)
 * [Lookups](#lookups)
 * [Saving](#saving)
+* [Other Helpful Methods](#other-helpful-methods)
 * [Next Steps](#next-steps)
 
 # Requirements
@@ -734,6 +735,36 @@ async onSomeEvent(event: Event) {
 
     // Save both at the same time in a single transaction.
     await saveAll(sender, recipient)
+}
+```
+
+# Other Helpful Methods
+
+### `getCurrentBlock`
+
+Get the current block of the event being handled.
+
+#### Example:
+
+```typescript
+@OnEvent('namespace.Contract.Event')
+async onSomeEvent(event: Event) {
+    const block = await this.getCurrentBlock()
+    // ...
+}
+```
+
+### `getCurrentTransaction`
+
+Get the current transaction of the event being handled.
+
+#### Example:
+
+```typescript
+@OnEvent('namespace.Contract.Event')
+async onSomeEvent(event: Event) {
+    const tx = await this.getCurrentTransaction()
+    // ...
 }
 ```
 
