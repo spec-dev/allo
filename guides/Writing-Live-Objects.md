@@ -467,7 +467,57 @@ It's worth noting that not _every_ npm package tends to play well with the Deno 
 
 # Class Instantiation
 
-...
+Sometimes it's necessary to create multiple Live Object records from a single event. In order to do this, you need to be able to  instantiate a new class instance for the desired Live Object. This can be done in the following manner with `this.new`:
+
+> [!IMPORTANT]
+> `this.new(...)` should ALWAYS be used to create new Live Object class instances. The `new SomeLiveObject()` syntax won't work.
+
+#### Signature
+```typescript
+this.new(LiveObjectClassType, initialPropertyData)
+```
+
+#### Example
+
+```typescript
+@Spec({
+    uniqueBy: ['contractAddress', 'accountAddress', 'chainId']
+})
+class Participant extends LiveObject {
+
+    @Property()
+    contractAddress: Address
+
+    @Property()
+    accountAddress: Address
+
+    // ==== Event Handlers ===================
+
+    @OnEvent('namespace.Contract.Transfer')
+    async onSomeEvent(event: Event) {
+        // Create new Live Object instance for the transfer sender.
+        const sender = this.new(Participant, {
+            contractAddress: event.origin.contractAddress,
+            accountAddress: event.data.from,
+        })
+
+        // Create new Live Object instance for the transfer recipient.
+        const recipient = this.new(Participant, {
+            contractAddress: event.origin.contractAddress,
+            accountAddress: event.data.to,
+        })
+
+        // Save both at the same time in a single transaction.
+        await saveAll(sender, recipient)
+    }
+}
+```
+
+When `this.new(...)` is called, a few things happen:
+
+1) A new class instance of the given Live Object type is created.
+2) The given property values are set on the new class instance.
+3) The new class instance has all 4 of its [base Live Object properties](#base-properties) (`chainId`, `blockNumber`, `blockTimestamp`, `blockHash`) set automatically, taking on the same values as those from the calling class (`this`).
 
 # Lookups
 
@@ -483,9 +533,10 @@ In some situations, it's necessary to find an existing Live Object record and lo
 > [!NOTE]
 > This shouldn't actually be necessary unless you need a property value that isn't present on the event itself. Most of the time you can just set property values using event data and let Spec auto-upsert the Live Object record for you.
 
-**Example:**<br>
+#### Example:
+
 ```typescript
-@OnEvent('nsp.Contract.Event')
+@OnEvent('namespace.Contract.Event')
 async onSomeEvent(event: Event) {
     // Set unique properties.
     this.someUniqueProperty = event.data.something
@@ -546,7 +597,7 @@ However, if you ever need to manually save a Live Object instance in the middle 
 2) Make sure your handler function is tagged as `async`
 3) Manually call `await this.save()` whenever/wherever you need
 
-**Example:**<br>
+#### Example:
 ```typescript
 @OnEvent('allo.ProjectRegistry.ProjectCreated', { autoSave: false })
 async createProject(event: Event) {
