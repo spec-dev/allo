@@ -523,7 +523,7 @@ When `this.new(...)` is called, a few things happen:
 
 1) A new class instance of the given Live Object type is created.
 2) The given property values are set on the new class instance.
-3) The new class instance has all 4 of its [base Live Object properties](#base-properties) (`chainId`, `blockNumber`, `blockTimestamp`, `blockHash`) automatically set, taking on the same values as those from the calling class (`this`). This is why, in the above example, you don't see `chainId` explicitly passed in with the rest of the initial properties — it simply doesn't need to be.
+3) The new class instance has all 4 of its [base Live Object properties](#base-properties) (`chainId`, `blockNumber`, `blockTimestamp`, `blockHash`) automatically set, taking on the same values as those from the calling class (`this`). This is why in the example above, you don't see `chainId` explicitly passed in with the rest of the initial properties — it simply doesn't have to be.
 
 # Lookups
 
@@ -555,7 +555,7 @@ async onSomeEvent(event: Event) {
 
 ## Instantiating + Loading
 
-It's also possible to instantiate a new Live Object class and then call `load()` on it as well. Doing this does require all unique properties to be set first, though.
+It's also possible to [instantiate](#class-instantiation) a new Live Object class and then call `load()` on it as well. Doing this does require all unique properties to be set first, though.
 
 ```typescript
 @OnEvent('namespace.Contract.Event')
@@ -565,7 +565,26 @@ async onSomeEvent(event: Event) {
         uniqueProperty2: '...',
     })
     await someInstance.load()
+    // ...
 }
+```
+
+## Querying for existing Live Object records
+
+Finding existing Live Object records can be done with 2 different class methods — `this.find` and `this.findOne`.
+
+#### Signatures
+```typescript
+/**
+ * where: properties to filter by
+ * options: {
+ *      orderBy?: OrderBy ('asc' | 'desc')
+ *      offset?: number
+ *      limit?: number
+ *  }
+ **/
+this.find(LiveObjectClassType, where, options?)    // returns an array of Live Object class instances
+this.findOne(LiveObjectClassType, where, options?) // returns the matching Live Object class instance (or null)
 ```
 
 # Saving
