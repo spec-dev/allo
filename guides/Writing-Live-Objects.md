@@ -116,6 +116,7 @@ Within a Live Object class, logic is organized into 2 main sections, with each s
 To get a better feel for how these classes are written, let's take a look at a Live Object that indexes all Projects on Allo.
 
 #### `allo/Project/spec.ts`
+
 ```typescript
 import { LiveObject, Spec, Property, Event, OnEvent, BigInt, Json, Timestamp } from '@spec.dev/core'
 
@@ -480,6 +481,8 @@ this.new(LiveObjectClassType, initialPropertyData)
 #### Example
 
 ```typescript
+import { LiveObject, Spec, Property, Event, OnEvent, Address, saveAll } from '@spec.dev/core'
+
 /**
  * A participant of some transfer.
  **/
@@ -544,11 +547,24 @@ async onSomeEvent(event: Event) {
     // Set unique properties.
     this.someUniqueProperty = event.data.something
 
-    // Load the full record into `this`. 
-    const doesExist = await this.load()
+    // Load the full record into `this`. If the record already exists,
+    // all of its properties (`this.something`) will automatically be set for you.
+    const alreadyExists = await this.load()
+}
+```
 
-    // If the record exists, all @Properties of `this` Live Object 
-    // class will now hold values (are automatically set).
+## Instantiating + Loading
+
+It's also possible to instantiate a new Live Object class and then call `load()` on it as well. Doing this does require all unique properties to be set first, though.
+
+```typescript
+@OnEvent('namespace.Contract.Event')
+async onSomeEvent(event: Event) {
+    const someInstance = this.new(SomeLiveObject, {
+        uniqueProperty1: '...',
+        uniqueProperty2: '...',
+    })
+    await someInstance.load()
 }
 ```
 
