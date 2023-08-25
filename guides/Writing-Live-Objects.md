@@ -473,12 +473,13 @@ Sometimes it's necessary to create multiple Live Object records from a single ev
 > [!IMPORTANT]
 > `this.new(...)` should **always** be used to create new Live Object class instances. The `new SomeLiveObject()` syntax won't work for a variety of reasons.
 
-#### Signature
+#### Signature:
+
 ```typescript
 this.new(LiveObjectClassType, initialPropertyData)
 ```
 
-#### Example
+#### Example:
 
 ```typescript
 import { LiveObject, Spec, Property, Event, OnEvent, Address, saveAll } from '@spec.dev/core'
@@ -499,7 +500,7 @@ class Participant extends LiveObject {
 
     // ==== Event Handlers ===================
 
-    @OnEvent('namespace.Contract.Transfer')
+    @OnEvent('namespace.Contract.Transfer', { autoSave: false })
     async onSomeEvent(event: Event) {
         // Sending participant.
         const sender = this.new(Participant, {
@@ -560,11 +561,13 @@ It's also possible to [instantiate](#class-instantiation) a new Live Object clas
 ```typescript
 @OnEvent('namespace.Contract.Event')
 async onSomeEvent(event: Event) {
+    // Load an instance that may exist.
     const someInstance = this.new(SomeLiveObject, {
         uniqueProperty1: '...',
         uniqueProperty2: '...',
     })
     await someInstance.load()
+
     // ...
 }
 ```
@@ -573,7 +576,8 @@ async onSomeEvent(event: Event) {
 
 Finding existing Live Object records can be done with 2 different class methods — `this.find` and `this.findOne`.
 
-#### Signatures
+#### Signatures:
+
 ```typescript
 // Returns an array of Live Object class instances.
 await this.find(LiveObjectClassType, matchingProperties, options?) 
@@ -597,7 +601,7 @@ enum OrderByDirection {
 }
 ```
 
-#### Example
+#### Example:
 
 ```typescript
 @OnEvent('namespace.Contract.Event')
@@ -606,11 +610,14 @@ async onSomeEvent(event: Event) {
     const matchingInstances = await this.find(SomeLiveObject, {
         property: 'value'
     })
+
     // Find one.
     const someSpecificInstance = await this.findOne(SomeLiveObject, {
         uniqueProperty1: '...',
         uniqueProperty2: '...',
     })
+
+    // ...
 }
 ```
 
@@ -663,6 +670,7 @@ However, if you ever need to manually save a Live Object instance in the middle 
 3) Manually call `await this.save()` whenever/wherever you need
 
 #### Example:
+
 ```typescript
 @OnEvent('allo.ProjectRegistry.ProjectCreated', { autoSave: false })
 async createProject(event: Event) {
@@ -672,13 +680,62 @@ async createProject(event: Event) {
     // Manually save
     await this.save()
 
-    // ...do something else super cool...
+    // ...
 }
 ```
 
 One other option instead of setting `autoSave: false` is to simply `return false` from your handler function itself. These are essentially equivalent.
 
 Just know that as long as your `uniqueBy` properties are set, you can call `await this.save()` whenever you need to.
+
+## Saving newly instantiated objects
+
+To save a newly instantiated Live Object, simply call `.save()` on it after instantiating it.
+
+#### Example:
+
+```typescript
+@OnEvent('namespace.Contract.Event')
+async onSomeEvent(event: Event) {
+    // Instantiate a completely new instance.
+    const instance = await this.new(SomeLiveObject, {
+        uniqueProperty1: '...',
+        uniqueProperty2: '...',
+        property3: '...',
+    })
+
+    // Manually save it.
+    await instance.save()
+}
+```
+
+## Saving multiple Live Objects simultaneously
+
+For performance boosts, it's handy being able to save multiple Live Objects at the same time, in the same transaction. This can be done with the `saveAll` helper function, which we used back in our [example](#class-instantiation) for new class instantiation.
+
+```typescript
+import { ..., saveAll } from '@spec.dev/core'
+
+// ...
+
+@OnEvent('namespace.Contract.Transfer', { autoSave: false })
+async onSomeEvent(event: Event) {
+    // Sending participant.
+    const sender = this.new(Participant, {
+        contractAddress: event.origin.contractAddress,
+        accountAddress: event.data.from,
+    })
+
+    // Receiving participant.
+    const recipient = this.new(Participant, {
+        contractAddress: event.origin.contractAddress,
+        accountAddress: event.data.to,
+    })
+
+    // Save both at the same time in a single transaction.
+    await saveAll(sender, recipient)
+}
+```
 
 # Next Steps
 
