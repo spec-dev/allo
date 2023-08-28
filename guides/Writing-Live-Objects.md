@@ -765,7 +765,7 @@ interface ContractCallResponse {
 }
 ```
 
-### Binding to a contract group already referenced in a decorator
+### Binding to a contract group that's already referenced by a handler
 
 Before running a Live Object, Spec automatically sources the ABIs for any contract groups referenced within your `@OnEvent` and `@OnCall` decorators. For example, if your Live Object has an event handler like this...
 
