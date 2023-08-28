@@ -790,7 +790,7 @@ this.bind(
 
 ```typescript
 @OnEvent('allo.RoundFactory.RoundCreated')
-createProject(event: Event) {
+createRound(event: Event) {
     this.address = event.data.roundAddress
 
     // Bind to new round contract using the ABI for the 'allo.Round' contract group.
@@ -815,7 +815,46 @@ updateMatchAmount(event: Event) {
 
 ### Calling arbitrary contract methods
 
-new ContractMethod()
+You can also call arbitrary methods on arbitrary contracts, with the help of our `ContractMethod` class.
+
+#### Signature:
+
+```typescript
+const method = new ContractMethod(chainId, contractAddress, methodAbi)
+```
+
+The ABI for the method you wish to call can either be a structured ABI object or a string-representation of the function signature.
+
+#### Examples:
+
+```typescript
+import { ContractMethod } from '@spec.dev/core'
+
+/**
+ * Using function signature.
+ **/
+const someMethod = new ContractMethod('1', '0x123...', 'function someMethod() view returns (address)')
+const someAddress = (await method.call()).outputArgs[0]
+
+/**
+ * Using object ABI item.
+ **/
+const methodAbiItem = {
+    "inputs" [],
+    "name": "someMethod",
+    "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+}
+const someMethod = new ContractMethod('1', '0x123...', methodAbiItem)
+const someAddress = (await someMethod.call()).outputArgs[0]
+```
 
 ### Binding to arbitrary contracts
 
