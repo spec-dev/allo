@@ -765,52 +765,6 @@ interface ContractCallResponse {
 }
 ```
 
-## Binding to a contract group that's already referenced by a handler
-
-Before running a Live Object, Spec automatically sources the ABIs for any contract groups referenced within your `@OnEvent` and `@OnCall` decorators. For example, if your Live Object has an event handler like this...
-
-```typescript
-@OnEvent('allo.ProjectRegistry.ProjectCreated')
-createProject(event: Event) {}
-```
-
-...Spec will automatically have the ABI for `allo.ProjectRegistry` locally available. Because of this, if you ever need to call a method on a contract within these specific groups that are already referenced, you can use `this.bind` in the following way:
-
-#### Signature:
-
-```typescript
-this.bind(
-    contractAddress: string,
-    contractGroupName?: string,
-    chainId?: string // defaults to chain id of current event being handled
-)
-```
-
-#### Example:
-
-```typescript
-@OnEvent('allo.RoundFactory.RoundCreated')
-createRound(event: Event) {
-    this.address = event.data.roundAddress
-
-    // Bind to new round contract using the ABI for the 'allo.Round' contract group.
-    // This can be done because an event handler for 'allo.Round' exists below, so 
-    // its ABI is already locally available.
-    const roundContract = this.bind(this.address, 'allo.Round')
-
-    // Call method on round contract.
-    this.tokenAddress = (await roundContract.token()).outputArgs[0]
-}
-
-// ...
-
-@OnEvent('allo.Round.MatchAmountUpdated')
-updateMatchAmount(event: Event) {
-    this.address = event.origin.contractAddress
-    this.matchAmount = BigInt.from(event.data.newAmount)
-}
-```
-
 ## Calling arbitrary contract methods
 
 You can also call arbitrary methods on any contract, with the help of our `ContractMethod` class.
@@ -873,9 +827,51 @@ const contract = new Contract('137', '0x123...', abi)
 const { outputs, outputArgs } = await contract.someMethod()
 ```
 
-## Binding to standard contract interfaces
+## Binding to a contract group that's already referenced by a handler
 
-new ERC20()
+Before running a Live Object, Spec automatically sources the ABIs for any contract groups referenced within your `@OnEvent` and `@OnCall` decorators. For example, if your Live Object has an event handler like this...
+
+```typescript
+@OnEvent('allo.ProjectRegistry.ProjectCreated')
+createProject(event: Event) {}
+```
+
+...Spec will automatically have the ABI for `allo.ProjectRegistry` locally available. Because of this, if you ever need to call a method on a contract within these specific groups that are already referenced, you can use `this.bind` in the following way:
+
+#### Signature:
+
+```typescript
+this.bind(
+    contractAddress: string,
+    contractGroupName?: string,
+    chainId?: string // defaults to chain id of current event being handled
+)
+```
+
+#### Example:
+
+```typescript
+@OnEvent('allo.RoundFactory.RoundCreated')
+createRound(event: Event) {
+    this.address = event.data.roundAddress
+
+    // Bind to new round contract using the ABI for the 'allo.Round' contract group.
+    // This can be done because an event handler for 'allo.Round' exists below, so 
+    // its ABI is already locally available.
+    const roundContract = this.bind(this.address, 'allo.Round')
+
+    // Call method on round contract.
+    this.tokenAddress = (await roundContract.token()).outputArgs[0]
+}
+
+// ...
+
+@OnEvent('allo.Round.MatchAmountUpdated')
+updateMatchAmount(event: Event) {
+    this.address = event.origin.contractAddress
+    this.matchAmount = BigInt.from(event.data.newAmount)
+}
+```
 
 # Resolving Metadata
 
