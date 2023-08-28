@@ -756,7 +756,7 @@ async onSomeEvent(event: Event) {
 }
 ```
 
-## Contract call response type:
+## Contract method call response type
 
 ```typescript
 interface ContractCallResponse {
@@ -809,13 +809,11 @@ updateMatchAmount(event: Event) {
     this.address = event.origin.contractAddress
     this.matchAmount = BigInt.from(event.data.newAmount)
 }
-
-// ...
 ```
 
 ## Calling arbitrary contract methods
 
-You can also call arbitrary methods on arbitrary contracts, with the help of our `ContractMethod` class.
+You can also call arbitrary methods on any contract, with the help of our `ContractMethod` class.
 
 #### Structure:
 
@@ -857,7 +855,23 @@ const someAddress = (await someMethod.call()).outputArgs[0]
 
 ## Binding to arbitrary contracts
 
-new Contract()
+In situations where you need to call more than one method on an arbitrary contract, our `Contract` class can be used.
+
+```typescript
+import { Contract } from '@spec.dev/core'
+
+const abi = [
+    {
+        "type": "function",
+        "name": "someMethod",
+        ...
+    },
+    ...
+]
+
+const contract = new Contract('137', '0x123...', abi)
+const { outputs, outputArgs } = await contract.someMethod()
+```
 
 ## Binding to standard contract interfaces
 
