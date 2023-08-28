@@ -744,7 +744,7 @@ async onSomeEvent(event: Event) {
 
 Requesting more information from a particular contract is often necessary when indexing data off-chain. Spec makes this possible in a variety of different ways.
 
-### Calling methods on the "current" contract
+## Calling methods on the "current" contract
 
 In the instance where you need to call a method on the *same contract* that emitted the event you are handling, you can simply reference `this.contract` and call the method directly:
 
@@ -756,7 +756,7 @@ async onSomeEvent(event: Event) {
 }
 ```
 
-### Contract call response type:
+## Contract call response type:
 
 ```typescript
 interface ContractCallResponse {
@@ -765,7 +765,7 @@ interface ContractCallResponse {
 }
 ```
 
-### Binding to a contract group that's already referenced by a handler
+## Binding to a contract group that's already referenced by a handler
 
 Before running a Live Object, Spec automatically sources the ABIs for any contract groups referenced within your `@OnEvent` and `@OnCall` decorators. For example, if your Live Object has an event handler like this...
 
@@ -813,33 +813,31 @@ updateMatchAmount(event: Event) {
 // ...
 ```
 
-### Calling arbitrary contract methods
+## Calling arbitrary contract methods
 
 You can also call arbitrary methods on arbitrary contracts, with the help of our `ContractMethod` class.
 
-#### Signature:
-
-```typescript
-const method = new ContractMethod(chainId, contractAddress, methodAbi)
-```
-
-The ABI for the method you wish to call can either be a structured ABI object or a string-representation of the function signature.
-
-#### Examples:
+#### Structure:
 
 ```typescript
 import { ContractMethod } from '@spec.dev/core'
 
-/**
- * Using function signature.
- **/
+const method = new ContractMethod(chainId, contractAddress, methodAbi)
+const { outputs, outputArgs } = await method.call(input1, input2, ...)
+```
+
+The ABI for the method you wish to call can either be a structured ABI object or a string-representation of the function signature.
+
+#### Example 1 — Function signature as ABI:
+
+```typescript
 const someMethod = new ContractMethod('1', '0x123...', 'function someMethod() view returns (address)')
 const someAddress = (await method.call()).outputArgs[0]
+```
 
-/**
- * Using object ABI item.
- **/
-const methodAbiItem = {
+#### Example 2 — Using ABI Item:
+```typescript
+const abiItem = {
     "inputs" [],
     "name": "someMethod",
     "outputs": [
@@ -852,15 +850,16 @@ const methodAbiItem = {
     "stateMutability": "view",
     "type": "function"
 }
+
 const someMethod = new ContractMethod('1', '0x123...', methodAbiItem)
 const someAddress = (await someMethod.call()).outputArgs[0]
 ```
 
-### Binding to arbitrary contracts
+## Binding to arbitrary contracts
 
 new Contract()
 
-### Binding to standard contract interfaces
+## Binding to standard contract interfaces
 
 new ERC20()
 
