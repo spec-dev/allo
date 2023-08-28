@@ -828,11 +828,7 @@ const abi = [
     // ...
 ]
 
-const contract = new Contract(
-    '137',      // chain id
-    '0x123...', // contract address
-    abi,        // full contract ABI
-)
+const contract = new Contract('137', '0x123...', abi)
 const output1 = (await contract.method1()).outputArgs[0]
 const output2 = (await contract.method2()).outputArgs[0]
 ```
