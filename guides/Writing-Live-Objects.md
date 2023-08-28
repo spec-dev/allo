@@ -746,22 +746,84 @@ Requesting more information from a particular contract is often necessary when i
 
 ### Calling methods on the "current" contract
 
-In the instance where you need to call a method on *the same contract* that emitted the event you are handling, you can simply use `this.contract`:
+In the instance where you need to call a method on the *same contract* that emitted the event you are handling, you can simply reference `this.contract` and call the method directly:
 
 ```typescript
 @OnEvent('namespace.Contract.Event')
 async onSomeEvent(event: Event) {
+    // Calls `someMethod()` on the contract that emitted this event.
     const { outputs, outputArgs } = await this.contract.someMethod()
 }
 ```
 
-The return type of a contract method call is as follows:
+### Contract call response type:
+
 ```typescript
 interface ContractCallResponse {
-    outputs: { [key: string]: any }  // outputs as a { <name>: <value> } map (if output args have names)
+    outputs: { [key: string]: any }  // outputs in key:value format (if outputs are named)
     outputArgs: any[]                // output values as an array
 }
 ```
+
+### Binding to a contract group already referenced in a decorator
+
+Before running a Live Object, Spec automatically sources the ABIs for any contract groups referenced within your `@OnEvent` and `@OnCall` decorators. For example, if your Live Object has an event handler like this...
+
+```typescript
+@OnEvent('allo.ProjectRegistry.ProjectCreated')
+createProject(event: Event) {}
+```
+
+...Spec will automatically have the ABI for `allo.ProjectRegistry` locally available. Because of this, if you ever need to call a method on a contract within these specific groups that are already referenced, you can use `this.bind` in the following way:
+
+#### Signature:
+
+```typescript
+this.bind(
+    contractAddress: string,
+    contractGroupName?: string,
+    chainId?: string // defaults to chain id of current event being handled
+)
+```
+
+#### Example:
+
+```typescript
+@OnEvent('allo.RoundFactory.RoundCreated')
+createProject(event: Event) {
+    this.address = event.data.roundAddress
+
+    // Bind to new round contract using the ABI for the 'allo.Round' contract group.
+    // This can be done because an event handler for 'allo.Round' exists below, so 
+    // its ABI is already locally available.
+    const roundContract = this.bind(this.address, 'allo.Round')
+
+    // Call method on round contract.
+    this.tokenAddress = (await roundContract.token()).outputArgs[0]
+}
+
+// ...
+
+@OnEvent('allo.Round.MatchAmountUpdated')
+updateMatchAmount(event: Event) {
+    this.address = event.origin.contractAddress
+    this.matchAmount = BigInt.from(event.data.newAmount)
+}
+
+// ...
+```
+
+### Calling arbitrary contract methods
+
+new ContractMethod()
+
+### Binding to arbitrary contracts
+
+new Contract()
+
+### Binding to standard contract interfaces
+
+new ERC20()
 
 # Resolving Metadata
 
