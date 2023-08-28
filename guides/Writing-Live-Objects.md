@@ -817,14 +817,24 @@ import { Contract } from '@spec.dev/core'
 const abi = [
     {
         "type": "function",
-        "name": "someMethod",
-        ...
+        "name": "method1",
+        // ...
     },
-    ...
+    {
+        "type": "function",
+        "name": "method2",
+        // ...
+    },
+    // ...
 ]
 
-const contract = new Contract('137', '0x123...', abi)
-const { outputs, outputArgs } = await contract.someMethod()
+const contract = new Contract(
+    '137',      // chain id
+    '0x123...', // contract address
+    abi,        // full contract ABI
+)
+const output1 = (await contract.method1()).outputArgs[0]
+const output2 = (await contract.method2()).outputArgs[0]
 ```
 
 ## Binding to a contract group that's already referenced by a handler
