@@ -2,6 +2,15 @@
 
 It's easy to test your Live Objects locally using live production data from the Spec network.
 
+### Table of Contents
+
+* [Requirements](#requirements)
+* [Prerequisites](#prerequisites)
+* [What happens under the hood](#what-happens-under-the-hood)
+* [Testing on new events](#testing-on-new-events)
+* [Testing on historical event data](#testing-on-historical-event-data)
+* [Next steps](#next-steps)
+
 ## Requirements
 
 * [Spec CLI](./CLI-Setup.md)

@@ -1,5 +1,18 @@
 # Contract Groups
 
+### Table of Contents
+
+* [Intro](#intro)
+* [Permissions](#permissions)
+* [Requirements](#requirements)
+* [Adding contracts to a group manually](#adding-contracts-to-a-group-manually)
+* [Adding contracts to a group dynamically](#adding-contracts-to-a-group-dynamically-factory-groups)
+* [Viewing the contracts in a group](#viewing-the-contracts-in-a-group)
+* [Viewing the events in a group](#viewing-the-events-in-a-group)
+* [Next steps](#next-steps)
+
+## Intro
+
 All data on Spec is organized by context rather than by chain. Because of this, when a protocol is onboarded into the Spec ecosystem, all of its contracts are organized into <b>Contract Groups</b> that are chain-agnostic and contextually specific (e.g. `uniswapv3.Pool`, `gitcoin.Timelock`, `allo.ProjectRegistry`, etc.). 
 
 Technically speaking, a Contract Group is a set of contract addresses that all share a common ABI, regardless of deployment chain. You can visualize a Contract Group like this:
@@ -58,7 +71,7 @@ createRound(event: Event) {
 $ spec create group
 ```
 
-## Viewing the contract addresses in a group
+## Viewing the contracts in a group
 
 To view the contracts that exist within a particular group, use the following CLI command:
 
