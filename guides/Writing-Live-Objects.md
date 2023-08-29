@@ -23,7 +23,7 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 # Requirements
 
 * [Spec CLI](./CLI-Setup.md)
-* [Deno](https://deno.com/manual@v1.33.1/getting_started/installation) >= 1.3 (we also highly recommend the Deno/Denoland VSCode extension)
+* [Deno](https://deno.com/manual@v1.33.1/getting_started/installation) >= 1.3 (we also highly recommend the Deno VSCode extension by "denoland" with the purple icon)
 * [Postgres](https://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/) >= 14
 
 # X vs. Y

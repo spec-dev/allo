@@ -2,7 +2,7 @@
 
 ### Table of Contents
 
-* [Intro](#intro)
+* [Introduction](#introduction)
 * [Permissions](#permissions)
 * [Requirements](#requirements)
 * [Adding contracts to a group manually](#adding-contracts-to-a-group-manually)
@@ -11,7 +11,7 @@
 * [Viewing the events in a group](#viewing-the-events-in-a-group)
 * [Next steps](#next-steps)
 
-## Intro
+## Introduction
 
 All data on Spec is organized by context rather than by chain. Because of this, when a protocol is onboarded into the Spec ecosystem, all of its contracts are organized into <b>Contract Groups</b> that are chain-agnostic and contextually specific (e.g. `uniswapv3.Pool`, `gitcoin.Timelock`, `allo.ProjectRegistry`, etc.). 
 
