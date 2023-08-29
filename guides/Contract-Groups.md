@@ -51,8 +51,8 @@ createRound(event: Event) {
     this.addContractToGroup(this.address, 'allo.Round')
 }
 ```
-
-The only requirement when using `addContractToGroup` is that the contract group itself must already exist. To create a new *empty* contract group to hold these factory-produced contracts, you can use the following command:
+> [!IMPORTANT]
+> The only requirement when using `addContractToGroup` is that the contract group itself must already exist. To create a new *empty* contract group to hold these factory-produced contracts, you can use the command below and follow the prompts:
 
 ```bash
 $ spec create group
