@@ -6,9 +6,10 @@ It's easy to test your Live Objects locally using live production data from the 
 
 * [Requirements](#requirements)
 * [Prerequisites](#prerequisites)
-* [What happens under the hood](#what-happens-under-the-hood)
+* [How testing works under the hood](#how-testing-works-under-the-hood)
 * [Testing on new events](#testing-on-new-events)
 * [Testing on historical event data](#testing-on-historical-event-data)
+* [Other important things to know about testing](#other-important-things-to-know-about-testing)
 * [Next steps](#next-steps)
 
 ## Requirements
@@ -29,7 +30,7 @@ It's easy to test your Live Objects locally using live production data from the 
     $ psql
     ```
 
-## What happens under the hood
+## How testing works under the hood
 
 The Live Object testing process is designed to simulate how Spec will index your Live Object into the Spec network when it's officially published. With that in mind, whenever you test a Live Object, the following steps will take place:
 
@@ -75,8 +76,8 @@ $ spec test objects .
 
 Being able to test Live Objects on a range of historical input data is great, especially if those events or contract calls don't occur on-chain very often.
 
-> [!IMPORTANT]  
-> If you are testing a Live Object that resolves metadata from IPFS (using our `resolveMetadata` function), the testing process will take much longer (not surprisingly), so it's recommended to test these Live Objects on a shorter range of data than others.
+> [!IMPORTANT]
+> If you are testing a Live Object that resolves metadata from IPFS (using our [`resolveMetadata`](./Writing-Live-Objects.md#resolving-metadata) function), the testing process will take much longer (not surprisingly), so it's recommended to test these Live Objects on a shorter range of data than others.
 
 To test a Live Object on the previous 30 days of input events/calls:
 
@@ -95,6 +96,14 @@ To test a Live Object on its entire history of input data.
 ```bash
 $ spec test object ProjectOwner --all-time
 ```
+
+## Other important things to know about testing
+
+#### Metadata resolution
+As mentioned in the above section, if you are testing a Live Object that resolves metadata from IPFS (using our [`resolveMetadata`](./Writing-Live-Objects.md#resolving-metadata) function), the testing process will take much longer (not surprisingly), so it's recommended to test these Live Objects on a shorter range of data than others.
+
+#### Factory contract group additions
+Calls to [`this.addContractToGroup(...)`](./Contract-Groups.md#adding-contracts-to-a-group-dynamically-factory-groups) are only simulated in the local testing environment. This action is only functional when a published Live Object is running within the Spec network. This is to ensure no contracts are accidentally added to a production contract group while hacking on the early stages of a new Live Object. Instead, these simulated additions will show up in the logs when running `spec test object`.
 
 ## Next Steps
 
