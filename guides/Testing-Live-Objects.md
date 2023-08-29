@@ -99,11 +99,11 @@ $ spec test object ProjectOwner --all-time
 
 ## Other important things to know about testing
 
-#### Metadata resolution
+### Metadata resolution
 As mentioned in the above section, if you are testing a Live Object that resolves metadata from IPFS (using our [`resolveMetadata`](./Writing-Live-Objects.md#resolving-metadata) function), the testing process will take much longer (not surprisingly), so it's recommended to test these Live Objects on a shorter range of data than others.
 
-#### Factory contract group additions
-Calls to [`this.addContractToGroup(...)`](./Contract-Groups.md#adding-contracts-to-a-group-dynamically-factory-groups) are only simulated in the local testing environment. This action is only functional when a published Live Object is running within the Spec network. This is to ensure no contracts are accidentally added to a production contract group while hacking on the early stages of a new Live Object. Instead, these simulated additions will show up in the logs when running `spec test object`.
+### Factory contract group additions
+Calls to [`this.addContractToGroup(...)`](./Contract-Groups.md#adding-contracts-to-a-group-dynamically-factory-groups) are only simulated in the local testing environment. This action is only functional when a published Live Object is running within the Spec network. This is to ensure no contracts are accidentally added to a production contract group while hacking on the early stages of a new Live Object. Instead, these simulated contract group additions will show up in the logs when running `spec test object` so that you at least know what will happen in production.
 
 ## Next Steps
 
