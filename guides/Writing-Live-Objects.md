@@ -768,17 +768,8 @@ In the instance where you need to call a method on the *same contract* that emit
 ```typescript
 @OnEvent('namespace.Contract.Event')
 async onSomeEvent(event: Event) {
-    // Calls `someMethod()` on the contract that emitted this event.
-    const { outputs, outputArgs } = await this.contract.someMethod()
-}
-```
-
-## Contract method call response type
-
-```typescript
-interface ContractCallResponse {
-    outputs: { [key: string]: any }  // outputs in key:value format (if outputs are named)
-    outputArgs: any[]                // output values as an array
+    // Call `someMethod()` on the contract that emitted this event.
+    const outputValue = await this.contract.someMethod()
 }
 ```
 
@@ -792,7 +783,7 @@ You can also call arbitrary methods on any contract, with the help of our `Contr
 import { ContractMethod } from '@spec.dev/core'
 
 const method = new ContractMethod(chainId, contractAddress, methodAbi)
-const { outputs, outputArgs } = await method.call(input1, input2, ...)
+const output = await method.call(input1, input2, ...)
 ```
 
 The ABI for the method you wish to call can either be a structured ABI object or a string-representation of the function signature.
@@ -801,7 +792,7 @@ The ABI for the method you wish to call can either be a structured ABI object or
 
 ```typescript
 const someMethod = new ContractMethod('1', '0x123...', 'function someMethod() view returns (address)')
-const someAddress = (await method.call()).outputArgs[0]
+const someAddress = await method.call()
 ```
 
 #### Example 2 — Using ABI Item:
@@ -821,7 +812,7 @@ const abiItem = {
 }
 
 const someMethod = new ContractMethod('1', '0x123...', methodAbiItem)
-const someAddress = (await someMethod.call()).outputArgs[0]
+const someAddress = await method.call()
 ```
 
 ## Binding to arbitrary contracts
@@ -846,8 +837,8 @@ const abi = [
 ]
 
 const contract = new Contract('137', '0x123...', abi)
-const output1 = (await contract.method1()).outputArgs[0]
-const output2 = (await contract.method2()).outputArgs[0]
+const output1 = await contract.method1()
+const output2 = await contract.method2()
 ```
 
 ## Binding to a contract group that's already referenced by a handler
@@ -877,14 +868,11 @@ this.bind(
 @OnEvent('allo.RoundFactory.RoundCreated')
 createRound(event: Event) {
     this.address = event.data.roundAddress
-
     // Bind to new round contract using the ABI for the 'allo.Round' contract group.
     // This can be done because an event handler for 'allo.Round' exists below, so 
     // its ABI is already locally available.
     const roundContract = this.bind(this.address, 'allo.Round')
-
-    // Call method on round contract.
-    this.tokenAddress = (await roundContract.token()).outputArgs[0]
+    this.tokenAddress = await roundContract.token()
 }
 
 // ...
@@ -964,6 +952,20 @@ Get the current transaction of the event being handled.
 async onSomeEvent(event: Event) {
     const tx = await this.getCurrentTransaction()
     // ...
+}
+```
+
+### `isNullAddress`
+
+Checks whether an address is the ethereum zero/null address.
+
+```typescript
+import { isNullAddress } from '@spec.dev/core'
+
+if (isNullAddress(someAddress)) {
+    // do one thing
+} else {
+    // do another thing
 }
 ```
 

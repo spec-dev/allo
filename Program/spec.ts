@@ -34,10 +34,12 @@ class Program extends LiveObject {
         this.address = event.data.programContractAddress
         this.createdAt = this.blockTimestamp
 
-        // Get metaPtr from program contract and resolve off-chain metadata.
+        // Get metaPtr from program contract.
         const contract = this.bind(this.address, 'allo.Program')
-        const [protocolId, pointer] = (await contract.metaPtr()).outputArgs || []
+        const [protocolId, pointer] = await contract.metaPtr()
         this.metaPtr = [protocolId, pointer]
+
+        // Resolve off-chain metadata.
         this.metadata = await resolveMetadata(pointer, { protocolId })
         this.name = this.metadata.name
 
@@ -52,4 +54,5 @@ class Program extends LiveObject {
         this.address = event.origin.contractAddress
     }
 }
+
 export default Program
