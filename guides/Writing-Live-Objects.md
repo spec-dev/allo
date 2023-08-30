@@ -11,6 +11,9 @@ Before diving head-first into writing Live Objects, we highly recommend checking
 * [Creating Live Objects](#creating-live-objects)
 * [File Structure](#file-structure)
 * [Class Structure](#class-structure)
+    * [Properties](#properties)
+    * [Event Handlers](#event-handlers)
+    * [Call Handlers](#call-handlers)
 * [Imports](#imports)
 * [Class Instantiation](#class-instantiation)
 * [Lookups](#lookups)
@@ -326,6 +329,14 @@ When a contract event is indexed, Spec first creates a new instance of your Live
 
 ![](https://dbjzhg7yxqn0y.cloudfront.net/ehf3.png)
 
+### Additional Event Decorators
+
+#### `@OnAllEvents()`
+
+Sometimes multiple event handlers end up indexing data in the exact same way, which can lead to duplicate logic. To consolidate this shared logic, you can add a new class method decorated with `@OnAllEvents()` that will run _before_ all of your other event handlers — more specifically, it will run before steps 1 and 2 in the [event handler flow](#order-of-operations) diagram above. 
+
+Doing this is completely optional, but can come in handy. [Example of a Live Object that does this](../ProgramAccount/spec.ts).
+
 ## Call Handlers
 
 Sometimes a contract event doesn't contain all of the data you need to properly index a Live Object. In some cases, data that's missing from an event actually exists, instead, inside the inputs or outputs of a contract function call. Luckily, Spec has call handlers for this exact reason.
@@ -415,6 +426,12 @@ Example:
     outputArgs: [ '0xbf05d6b3b6a215c59cb7b92f1ddb6cf2c65bf9b4' ]
 }
 ```
+
+### Additional Call Decorators
+
+#### `@OnAllCalls()`
+
+Call-specific version of [`@OnAllEvents()`](#onallevents).
 
 # Imports
 

@@ -1,4 +1,4 @@
-import { LiveObject, Spec, Property, Event, OnEvent, OnAllEvents, Address, BigInt } from '@spec.dev/core'
+import { LiveObject, Spec, Property, Event, OnEvent, Address, BigInt } from '@spec.dev/core'
 
 /**
  * An owner of a Project on the Allo protocol
@@ -21,20 +21,18 @@ class ProjectOwner extends LiveObject {
 
     // ==== Event Handlers ===================
 
-    @OnAllEvents()
-    setCommonProperties(event: Event) {
-        this.projectId = BigInt.from(event.data.projectID)
-        this.accountAddress = event.data.owner
-    }
-
     @OnEvent('allo.ProjectRegistry.ProjectCreated')
     @OnEvent('allo.ProjectRegistry.OwnerAdded')
-    addOwner() {
+    addOwner(event: Event) {
+        this.projectId = BigInt.from(event.data.projectID)
+        this.accountAddress = event.data.owner
         this.isActive = true
     }
 
     @OnEvent('allo.ProjectRegistry.OwnerRemoved')
-    removeOwner() {
+    removeOwner(event: Event) {
+        this.projectId = BigInt.from(event.data.projectID)
+        this.accountAddress = event.data.owner
         this.isActive = false
     }
 }
