@@ -83,10 +83,11 @@ class Round extends LiveObject {
         this.programAddress = event.data.ownedBy
         this.createdAt = this.blockTimestamp
 
-        // Bind to new round contract and get/set remaining properties.
-        const round = this.bind(this.address, 'allo.Round')
-        this.applicationsStartTime = this._toTimestamp(await round.applicationsStartTime())
-        // TODO: ...continued RPC
+        // Get/set properties from round contract.
+        const roundContract = this.bind(this.address, 'allo.Round')
+        this.tokenAddress = await roundContract.token()
+        this.applicationsStartTime = this._toTimestamp(await roundContract.applicationsStartTime())
+        // ...
         
         // Add new round to contract group.
         this.addContractToGroup(this.address, 'allo.Round')

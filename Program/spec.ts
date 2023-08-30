@@ -35,8 +35,8 @@ class Program extends LiveObject {
         this.createdAt = this.blockTimestamp
 
         // Get metaPtr from program contract.
-        const contract = this.bind(this.address, 'allo.Program')
-        const [protocolId, pointer] = await contract.metaPtr()
+        const programContract = this.bind(this.address, 'allo.Program')
+        const [protocolId, pointer] = await programContract.metaPtr()
         this.metaPtr = [protocolId, pointer]
 
         // Resolve off-chain metadata.
