@@ -768,7 +768,6 @@ In the instance where you need to call a method on the *same contract* that emit
 ```typescript
 @OnEvent('namespace.Contract.Event')
 async onSomeEvent(event: Event) {
-    // Call `someMethod()` on the contract that emitted this event.
     const outputValue = await this.contract.someMethod()
 }
 ```
