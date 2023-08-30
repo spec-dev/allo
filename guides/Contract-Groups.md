@@ -1,5 +1,7 @@
 # Contract Groups
 
+Contract groups lay the foundation for all data on Spec.
+
 ### Table of Contents
 
 * [Introduction](#introduction)
