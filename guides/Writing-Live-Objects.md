@@ -867,6 +867,7 @@ this.bind(
 @OnEvent('allo.RoundFactory.RoundCreated')
 createRound(event: Event) {
     this.address = event.data.roundAddress
+    
     // Bind to new round contract using the ABI for the 'allo.Round' contract group.
     // This can be done because an event handler for 'allo.Round' exists below, so 
     // its ABI is already locally available.

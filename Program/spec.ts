@@ -24,7 +24,7 @@ class Program extends LiveObject {
     metadata: Json
 
     // When the program was first created.
-    @Property({ canUpdate: false })
+    @Property()
     createdAt: Timestamp
 
     // ==== Event Handlers ===================
