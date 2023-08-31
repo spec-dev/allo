@@ -68,7 +68,7 @@ class Round extends LiveObject {
     projectsMetaPtr: Json
 
     // When the round was created.
-    @Property({ canUpdate: false })
+    @Property()
     createdAt: Timestamp
 
     // Round version.
