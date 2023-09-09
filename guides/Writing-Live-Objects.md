@@ -228,9 +228,9 @@ At the same time, some of Spec's custom property types provide contextual inform
 | `number`          | `integer`            |
 | `boolean`         | `boolean`            |
 
-#### BigInt & BigFloat
+#### Math — BigInt & BigFloat
 
-`BigInt` and `BigFloat` are held near and dear to our hearts in web3. The main thing to know is that `BigInt` and `BigFloat` on Spec are the same as `BigNumber` and `FixedNumber` on [`ethers.js`](https://docs.ethers.org/v6/).
+`BigInt` and `BigFloat` are held near and dear to our hearts in web3. The main thing to know is that `BigInt` and `BigFloat` on Spec are the same as `BigNumber` and `FixedNumber` on [`ethers.js`](https://docs.ethers.org/v6/), respectively.
 
 **Some math examples**<br>
 ```typescript
