@@ -205,20 +205,21 @@ All of these properties are _automatically set for you_ any time your Live Objec
 ### Property Types
 
 The type you choose for a Live Object property is important, because it tells Spec what Postgres column type to use for underlying data storage.
-Not only that, some of Spec's custom property types provide contextual information to other developers about what type of web3 value a given property holds.
+At the same time, some of Spec's custom property types provide contextual information to other developers about what type of web3 value a given property holds.
 
 #### Custom types (need to be imported)
 
-| Property Type     | Postgres Column Type |
-| ------------------| ---------------------|
-| `ChainId`         | `varchar`            |
-| `Address`         | `varchar`            |
-| `BlockNumber`     | `varchar`            |
-| `BlockHash`       | `varchar`            |
-| `TransactionHash` | `varchar`            |
-| `Timestamp`       | `timestamptz`        |
-| `Json`            | `json`               |
-| `BigInt`          | `varchar`            |
+| Property Type     | JavaScript Type        | Underlying Postgres Column Type | 
+| ------------------|------------------------|----------------------|
+| `ChainId`         | `string`               | `varchar`            |
+| `Address`         | `string`               | `varchar`            |
+| `BlockNumber`     | [`BigNumber (ethers)`](https://github.com/spec-dev/core-lib/blob/master/src/lib/helpers/ethers/bignumber.ts#L38)               | `varchar`            |
+| `BlockHash`       | `string`               | `varchar`            |
+| `TransactionHash` | `string`               | `varchar`            |
+| `Timestamp`       | `Date`                 | `timestamptz`        |
+| `Json`            | `json`                 | `json`               |
+| `BigInt`          | [`BigNumber (ethers)`](https://github.com/spec-dev/core-lib/blob/master/src/lib/helpers/ethers/bignumber.ts#L38)    | `varchar`            |
+| `BigFloat`          | [`FixedNumber (ethers)`](https://github.com/spec-dev/core-lib/blob/master/src/lib/helpers/ethers/fixednumber.ts#L244) | `varchar`            |
 
 #### Other types (built-in JavaScript types)
 | Property Type     | Postgres Column Type |
@@ -227,9 +228,33 @@ Not only that, some of Spec's custom property types provide contextual informati
 | `number`          | `integer`            |
 | `boolean`         | `boolean`            |
 
-#### BigInt
+#### BigInt & BigFloat
 
-`BigInt` is a type held near and dear to our hearts in web3. The main thing to know is that `BigInt` on Spec is the exact same as `BigNumber` on `ethers.js` ([Source](https://github.com/spec-dev/core-lib/blob/master/src/lib/helpers/index.ts#L6C1-L7C1)).
+`BigInt` and `BigFloat` are held near and dear to our hearts in web3. The main thing to know is that `BigInt` and `BigFloat` on Spec are the same as `BigNumber` and `FixedNumber` on [`ethers.js`](https://docs.ethers.org/v6/).
+
+**Some math examples**<br>
+```typescript
+import { BigInt, BigFloat } from '@spec.dev/core'
+
+let myBigInt = BigInt.from('25000000000000000000')
+let myBigFloat = BigFloat.from('12345678910234233.002234234')
+
+// Addition
+myBigInt = myBigInt.plus('50000000000000000000000')
+myBigFloat = myBigFloat.plus('7890.123')
+
+// Subtraction
+myBigInt = myBigInt.minus('50000000000000000000000')
+myBigFloat = myBigFloat.minus('80000000.32342')
+
+// Multiplication
+myBigInt = myBigInt.times('5')
+myBigFloat = myBigFloat.times('100')
+
+// Division
+myBigInt = myBigInt.div('5')
+myBigFloat = myBigFloat.div('100')
+```
 
 ## Event Handlers
 
@@ -331,9 +356,9 @@ When a contract event is indexed, Spec first creates a new instance of your Live
 
 ### Additional Event Decorators
 
-#### `@OnAllEvents()`
+#### `@BeforeAll()`
 
-Sometimes multiple event handlers end up indexing data in the exact same way, which can lead to duplicate logic. To consolidate this shared logic, you can add a new class method decorated with `@OnAllEvents()` that will run _before_ all of your other event handlers — more specifically, it will run before steps 1 and 2 in the [event handler flow](#order-of-operations) diagram above. 
+Sometimes multiple event handlers end up indexing data in the exact same way, which can lead to duplicate logic. To consolidate this shared logic, you can add a new class method decorated with `@BeforeAll()` that will run _before_ all of your other event handlers — more specifically, it will run before steps 1 and 2 in the [event handler flow](#order-of-operations) diagram above. 
 
 Doing this is completely optional, but can come in handy. [Example of a Live Object that does this](../ProgramAccount/spec.ts).
 
@@ -426,12 +451,6 @@ Example:
     outputArgs: [ '0xbf05d6b3b6a215c59cb7b92f1ddb6cf2c65bf9b4' ]
 }
 ```
-
-### Additional Call Decorators
-
-#### `@OnAllCalls()`
-
-Call-specific version of [`@OnAllEvents()`](#onallevents).
 
 # Imports
 

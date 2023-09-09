@@ -1,4 +1,4 @@
-import { LiveObject, Spec, Property, BigInt, Event, OnEvent, Address, Json, Timestamp } from '@spec.dev/core'
+import { Spec, LiveTable, Property, BigInt, Event, OnEvent, Address, Json, Timestamp } from '@spec.dev/core'
 
 /**
  * A Round on the Allo protocol.
@@ -6,7 +6,7 @@ import { LiveObject, Spec, Property, BigInt, Event, OnEvent, Address, Json, Time
 @Spec({ 
     uniqueBy: ['address', 'chainId'] 
 })
-class Round extends LiveObject {
+class Round extends LiveTable {
     // Address of the round.
     @Property()
     address: Address

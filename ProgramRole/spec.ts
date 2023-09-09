@@ -1,4 +1,4 @@
-import { LiveObject, Spec, Property, Address, OnEvent, Event } from '@spec.dev/core'
+import { Spec, LiveTable, Property, Address, OnEvent, Event } from '@spec.dev/core'
 
 /**
  * A role assigned to a Program on the Allo protocol.
@@ -6,7 +6,7 @@ import { LiveObject, Spec, Property, Address, OnEvent, Event } from '@spec.dev/c
 @Spec({ 
     uniqueBy: ['programAddress', 'role', 'chainId']
 })
-class ProgramRole extends LiveObject {
+class ProgramRole extends LiveTable {
     // Program address.
     @Property()
     programAddress: Address
