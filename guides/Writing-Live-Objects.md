@@ -124,7 +124,7 @@ To get a better feel for how these classes are written, let's take a look at a L
 #### `allo/Project/spec.ts`
 
 ```typescript
-import { LiveObject, Spec, Property, Event, OnEvent, BigInt, Json, Timestamp } from '@spec.dev/core'
+import { Spec, LiveTable, Property, Event, OnEvent, BigInt, Json, Timestamp } from '@spec.dev/core'
 
 /**
  * A Project on the Allo protocol.
@@ -132,7 +132,7 @@ import { LiveObject, Spec, Property, Event, OnEvent, BigInt, Json, Timestamp } f
 @Spec({ 
     uniqueBy: ['projectId', 'chainId']
 })
-class Project extends LiveObject {
+class Project exends LiveTable {
 
     @Property()
     projectId: BigInt
@@ -191,7 +191,7 @@ createdAt: Timestamp
 
 ### Base Properties
 
-All Live Objects come with 4 additional properties that are included on the `LiveObject` base class:
+All Live Tables come with 4 additional properties that are included on the `LiveTable` base class:
 
 1. `chainId` — The blockchain id
 2. `blockNumber` — The block number in which the object was *last updated*
@@ -521,7 +521,7 @@ this.new(LiveObjectClassType, initialPropertyData)
 #### Example:
 
 ```typescript
-import { LiveObject, Spec, Property, Event, OnEvent, Address, saveAll } from '@spec.dev/core'
+import { Spec, LiveTable, Property, Event, OnEvent, Address, saveAll } from '@spec.dev/core'
 
 /**
  * A participant of some transfer.
@@ -529,7 +529,7 @@ import { LiveObject, Spec, Property, Event, OnEvent, Address, saveAll } from '@s
 @Spec({
     uniqueBy: ['contractAddress', 'accountAddress', 'chainId']
 })
-class Participant extends LiveObject {
+class Participant exends LiveTable {
 
     @Property()
     contractAddress: Address
@@ -563,7 +563,7 @@ When `this.new(...)` is called, a few things happen:
 
 1) A new class instance of the given Live Object type is created.
 2) The given property values are set on the new class instance.
-3) The new class instance has all 4 of its [base Live Object properties](#base-properties) (`chainId`, `blockNumber`, `blockTimestamp`, `blockHash`) automatically set, taking on the same values as those from the calling class (`this`). This is why in the example above, you don't see `chainId` explicitly passed in with the rest of the initial properties — it simply doesn't have to be.
+3) The new class instance has all 4 of its [base Live Table properties](#base-properties) (`chainId`, `blockNumber`, `blockTimestamp`, `blockHash`) automatically set, taking on the same values as those from the calling class (`this`). This is why in the example above, you don't see `chainId` explicitly passed in with the rest of the initial properties — it simply doesn't have to be.
 
 # Lookups
 
@@ -677,7 +677,7 @@ Looking back at the [Allo Project](#alloprojectspects) example...
 @Spec({
     uniqueBy: ['projectId', 'chainId']
 })
-class Project extends LiveObject {
+class Project exends LiveTable {
 ```
 
 Because the Live Object is multi-chain, it makes since that a Project is unique by *the combination of* (`projectId`, `chainId`). And since Spec automatically assigns the value for `this.chainId`, the only unique property left to be set is `projectId`, which is done first-thing at the top of each event handler:
