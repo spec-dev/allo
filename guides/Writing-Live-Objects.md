@@ -352,13 +352,13 @@ Example:
 
 When a contract event is indexed, Spec first creates a new instance of your Live Object class. It then calls an abstract class method that carries out the following steps:
 
-![](https://dbjzhg7yxqn0y.cloudfront.net/ehf3.png)
+![](https://dbjzhg7yxqn0y.cloudfront.net/Group%205.png)
 
 ### Additional Event Decorators
 
 #### `@BeforeAll()`
 
-Sometimes multiple event handlers end up indexing data in the exact same way, which can lead to duplicate logic. To consolidate this shared logic, you can add a new class method decorated with `@BeforeAll()` that will run _before_ all of your other event handlers — more specifically, it will run before steps 1 and 2 in the [event handler flow](#order-of-operations) diagram above. 
+Sometimes multiple event handlers end up indexing data in the exact same way, which can lead to duplicate logic. To consolidate this shared logic, you can add a new class method decorated with `@BeforeAll()` that will run _before_ all of your other event handlers — more specifically, it runs in step3 in the [event handler flow](#order-of-operations) diagram above. 
 
 Doing this is completely optional, but can come in handy. [Example of a Live Object that does this](../ProgramAccount/spec.ts).
 
