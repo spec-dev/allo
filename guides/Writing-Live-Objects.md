@@ -124,7 +124,7 @@ To get a better feel for how these classes are written, let's take a look at a L
 #### `allo/Project/spec.ts`
 
 ```typescript
-import { Spec, LiveTable, Property, Event, OnEvent, BigInt, Json, Timestamp } from '@spec.dev/core'
+import { Spec, LiveObject, Property, Event, OnEvent, BigInt, Json, Timestamp } from '@spec.dev/core'
 
 /**
  * A Project on the Allo protocol.
@@ -132,7 +132,7 @@ import { Spec, LiveTable, Property, Event, OnEvent, BigInt, Json, Timestamp } fr
 @Spec({ 
     uniqueBy: ['projectId', 'chainId']
 })
-class Project exends LiveTable {
+class Project exends LiveObject {
 
     @Property()
     projectId: BigInt
@@ -191,7 +191,7 @@ createdAt: Timestamp
 
 ### Base Properties
 
-All Live Tables come with 4 additional properties that are included on the `LiveTable` base class:
+All Live Tables come with 4 additional properties that are included on the `LiveObject` base class:
 
 1. `chainId` — The blockchain id
 2. `blockNumber` — The block number in which the object was *last updated*
@@ -521,7 +521,7 @@ this.new(LiveObjectClassType, initialPropertyData)
 #### Example:
 
 ```typescript
-import { Spec, LiveTable, Property, Event, OnEvent, Address, saveAll } from '@spec.dev/core'
+import { Spec, LiveObject, Property, Event, OnEvent, Address, saveAll } from '@spec.dev/core'
 
 /**
  * A participant of some transfer.
@@ -529,7 +529,7 @@ import { Spec, LiveTable, Property, Event, OnEvent, Address, saveAll } from '@sp
 @Spec({
     uniqueBy: ['contractAddress', 'accountAddress', 'chainId']
 })
-class Participant exends LiveTable {
+class Participant exends LiveObject {
 
     @Property()
     contractAddress: Address
@@ -677,7 +677,7 @@ Looking back at the [Allo Project](#alloprojectspects) example...
 @Spec({
     uniqueBy: ['projectId', 'chainId']
 })
-class Project exends LiveTable {
+class Project exends LiveObject {
 ```
 
 Because the Live Object is multi-chain, it makes since that a Project is unique by *the combination of* (`projectId`, `chainId`). And since Spec automatically assigns the value for `this.chainId`, the only unique property left to be set is `projectId`, which is done first-thing at the top of each event handler:

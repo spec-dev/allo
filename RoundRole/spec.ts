@@ -1,4 +1,4 @@
-import { Spec, LiveTable, Property, Address, OnEvent, Event } from '@spec.dev/core'
+import { Spec, LiveObject, Property, Address, OnEvent, Event } from '@spec.dev/core'
 
 /**
  * A role assigned to a Round on the Allo protocol.
@@ -6,7 +6,7 @@ import { Spec, LiveTable, Property, Address, OnEvent, Event } from '@spec.dev/co
 @Spec({ 
     uniqueBy: ['roundAddress', 'role', 'chainId']
 })
-class RoundRole extends LiveTable {
+class RoundRole extends LiveObject {
     // Round address.
     @Property()
     roundAddress: Address

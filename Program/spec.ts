@@ -1,4 +1,4 @@
-import { Spec, LiveTable, Timestamp, Event, Property, Address, Json, OnEvent, resolveMetadata } from '@spec.dev/core'
+import { Spec, LiveObject, Timestamp, Event, Property, Address, Json, OnEvent, resolveMetadata } from '@spec.dev/core'
 
 /**
  * A Program on the Allo protocol.
@@ -6,7 +6,7 @@ import { Spec, LiveTable, Timestamp, Event, Property, Address, Json, OnEvent, re
 @Spec({ 
     uniqueBy: ['address', 'chainId']
 })
-class Program extends LiveTable {
+class Program extends LiveObject {
     // Address of the program.
     @Property()
     address: Address

@@ -1,4 +1,4 @@
-import { Spec, LiveTable, Property, BigInt, Event, OnEvent, Address, Json, Timestamp } from '@spec.dev/core'
+import { Spec, LiveObject, Property, BigInt, Event, OnEvent, Address, Json, Timestamp } from '@spec.dev/core'
 
 /**
  * A Round on the Allo protocol.
@@ -6,7 +6,7 @@ import { Spec, LiveTable, Property, BigInt, Event, OnEvent, Address, Json, Times
 @Spec({ 
     uniqueBy: ['address', 'chainId'] 
 })
-class Round extends LiveTable {
+class Round extends LiveObject {
     // Address of the round.
     @Property()
     address: Address
@@ -155,10 +155,10 @@ class Round extends LiveTable {
 
     // ==== Helpers ===================
 
-    _toTimestamp(unix): string | null {
+    _toTimestamp(unix): Date | null {
         const unixTs = parseInt(unix)
         if (Number.isNaN(unixTs)) return null
-        return new Date(unixTs * 1000).toISOString()
+        return new Date(unixTs * 1000)
     }
 }
 

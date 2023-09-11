@@ -1,4 +1,4 @@
-import { Spec, LiveTable, Property, Event, OnEvent, Address, BigInt } from '@spec.dev/core'
+import { Spec, LiveObject, Property, Event, OnEvent, Address, BigInt } from '@spec.dev/core'
 
 /**
  * An owner of a Project on the Allo protocol
@@ -6,7 +6,7 @@ import { Spec, LiveTable, Property, Event, OnEvent, Address, BigInt } from '@spe
 @Spec({
     uniqueBy: ['projectId', 'accountAddress', 'chainId'] 
 })
-class ProjectOwner extends LiveTable {
+class ProjectOwner extends LiveObject {
     // The project id.
     @Property()
     projectId: BigInt

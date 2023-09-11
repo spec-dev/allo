@@ -1,4 +1,4 @@
-import { Spec, LiveTable, Property, Event, OnEvent, BigInt, Json, Timestamp, resolveMetadata } from '@spec.dev/core'
+import { Spec, LiveObject, Property, Event, OnEvent, BigInt, Json, Timestamp, resolveMetadata } from '@spec.dev/core'
 
 /**
  * A Project on the Allo protocol.
@@ -6,7 +6,7 @@ import { Spec, LiveTable, Property, Event, OnEvent, BigInt, Json, Timestamp, res
 @Spec({ 
     uniqueBy: ['projectId', 'chainId']
 })
-class Project extends LiveTable {
+class Project extends LiveObject {
     // The project id.
     @Property()
     projectId: BigInt

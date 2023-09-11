@@ -1,4 +1,4 @@
-import { Spec, LiveTable, Property, Address, OnEvent, Event, BeforeAll } from '@spec.dev/core'
+import { Spec, LiveObject, Property, Address, OnEvent, Event, BeforeAll } from '@spec.dev/core'
 
 /**
  * An operator of an Allo Program with a specific role.
@@ -6,7 +6,7 @@ import { Spec, LiveTable, Property, Address, OnEvent, Event, BeforeAll } from '@
 @Spec({ 
     uniqueBy: ['programAddress', 'accountAddress', 'role', 'chainId']
 })
-class ProgramAccount extends LiveTable {
+class ProgramAccount extends LiveObject {
     // Program address.
     @Property()
     programAddress: Address
